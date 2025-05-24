@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMission } from "@/hooks/useMission";
 import { Mission, MissionAction } from "@/types/game";
+import { calculateSuccessChance } from "@/lib/gameUtils";
 
 type MissionModalProps = {
   isOpen: boolean;
@@ -75,21 +76,65 @@ export default function MissionModal({ isOpen, onClose, mission }: MissionModalP
                   
                   <div className="p-4 bg-dark rounded-lg border border-warning">
                     <h3 className="font-pixel text-warning text-sm mb-2">MISSION STATUS</h3>
-                    <p className="text-gray-300 mb-3">
-                      {currentMissionState || "You're about to start the mission. Ready?"}
-                    </p>
-                    
-                    <div className="w-full bg-surface h-4 rounded-full overflow-hidden mb-2">
-                      <motion.div 
-                        className="h-full bg-warning" 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${missionProgress}%` }}
-                        transition={{ duration: 1 }}
-                      ></motion.div>
+                    <div className="bg-surface/50 rounded p-2 mb-3">
+                      <p className="text-gray-300">
+                        {currentMissionState || "You're about to start the mission. Ready?"}
+                      </p>
                     </div>
-                    <div className="flex justify-between text-xs text-gray-400">
-                      <span>Mission Progress</span>
-                      <span>{missionProgress}%</span>
+                    
+                    <div className="grid grid-cols-1 gap-2 mb-3">
+                      <div>
+                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                          <span>Mission Progress</span>
+                          <span>{missionProgress}%</span>
+                        </div>
+                        <div className="w-full bg-surface h-4 rounded-full overflow-hidden">
+                          <motion.div 
+                            className="h-full bg-warning" 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${missionProgress}%` }}
+                            transition={{ duration: 1 }}
+                          ></motion.div>
+                        </div>
+                      </div>
+                      
+                      {missionProgress >= 100 && (
+                        <div>
+                          <div className="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Success Chance</span>
+                            <span className={`${
+                              calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'text-success' :
+                              calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'text-warning' :
+                              'text-destructive'
+                            }`}>
+                              {Math.round(calculateSuccessChance(playerStats, mission.difficulty) * 100)}%
+                            </span>
+                          </div>
+                          <div className="w-full bg-surface h-4 rounded-full overflow-hidden">
+                            <motion.div 
+                              className={`h-full ${
+                                calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'bg-success' :
+                                calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'bg-warning' :
+                                'bg-destructive'
+                              }`}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${calculateSuccessChance(playerStats, mission.difficulty) * 100}%` }}
+                              transition={{ duration: 1 }}
+                            ></motion.div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="bg-surface/30 rounded p-2 text-sm">
+                      <div className="flex items-center gap-2 text-gray-400">
+                        <span className="text-xs">STATUS:</span>
+                        {missionProgress < 100 ? (
+                          <span className="text-warning font-medium">In Progress</span>
+                        ) : (
+                          <span className="text-success font-medium">Ready for Final Move</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -145,13 +190,19 @@ export default function MissionModal({ isOpen, onClose, mission }: MissionModalP
                           whileHover={{ x: 5 }}
                           whileTap={{ x: 0 }}
                           onClick={() => handleActionClick(action)}
+                          disabled={missionProgress >= 100}
                         >
-                          <span>{action.name}</span>
-                          <span className={`text-xs ${
-                            action.affectedStat === 'success' ? 'text-primary' :
-                            action.affectedStat === 'stealth' ? 'text-secondary' :
-                            action.affectedStat === 'speed' ? 'text-accent' :
-                            'text-warning'
+                          <div className="flex flex-col">
+                            <span className="font-medium">{action.name}</span>
+                            <span className="text-xs text-gray-400 mt-1 line-clamp-1">
+                              {action.description || "Use this action to progress in your mission"}
+                            </span>
+                          </div>
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            action.affectedStat === 'success' ? 'bg-primary/20 text-primary' :
+                            action.affectedStat === 'stealth' ? 'bg-secondary/20 text-secondary' :
+                            action.affectedStat === 'speed' ? 'bg-accent/20 text-accent' :
+                            'bg-warning/20 text-warning'
                           }`}>
                             +{action.bonus}% {action.affectedStat.charAt(0).toUpperCase() + action.affectedStat.slice(1)}
                           </span>

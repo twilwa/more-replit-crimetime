@@ -76,6 +76,9 @@ export interface MissionAction {
   affectedStat: string;
   bonus: number;
   narrative: string;
+  description?: string;
+  risk?: number; // 0-100 risk level
+  cooldown?: number; // turns before can be used again
 }
 
 // Mission rewards type

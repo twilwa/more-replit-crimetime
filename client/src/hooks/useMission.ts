@@ -74,17 +74,67 @@ export const useMission = () => {
 
   // Take an action during a mission
   const takeAction = (action: MissionAction) => {
-    // Update the affected stat
-    setPlayerStats(prev => ({
-      ...prev,
-      [action.affectedStat]: Math.min(100, prev[action.affectedStat] + action.bonus)
-    }));
+    // Type-safe stat update based on affected stat
+    if (action.affectedStat === 'stealth' || 
+        action.affectedStat === 'intimidation' || 
+        action.affectedStat === 'speed' || 
+        action.affectedStat === 'luck') {
+      
+      setPlayerStats(prev => ({
+        ...prev,
+        [action.affectedStat]: Math.min(100, prev[action.affectedStat] + action.bonus)
+      }));
+    } else if (action.affectedStat === 'success') {
+      // Direct success bonus increases all stats a little
+      setPlayerStats(prev => ({
+        stealth: Math.min(100, prev.stealth + Math.floor(action.bonus / 4)),
+        intimidation: Math.min(100, prev.intimidation + Math.floor(action.bonus / 4)),
+        speed: Math.min(100, prev.speed + Math.floor(action.bonus / 4)),
+        luck: Math.min(100, prev.luck + Math.floor(action.bonus / 4))
+      }));
+    }
+    
+    // Risk calculation - higher risk actions can have consequences
+    if (action.risk && Math.random() * 100 < action.risk) {
+      // Action has some negative consequence based on the risk
+      const statPenalty = Math.ceil(action.risk / 10); // 1-5% penalty based on risk level
+      
+      // Choose a random stat to penalize
+      const stats = ['stealth', 'intimidation', 'speed', 'luck'];
+      const randomStat = stats[Math.floor(Math.random() * stats.length)];
+      
+      // Apply the penalty
+      setPlayerStats(prev => {
+        const updatedStats = { ...prev };
+        if (randomStat === 'stealth') {
+          updatedStats.stealth = Math.max(0, prev.stealth - statPenalty);
+        } else if (randomStat === 'intimidation') {
+          updatedStats.intimidation = Math.max(0, prev.intimidation - statPenalty);
+        } else if (randomStat === 'speed') {
+          updatedStats.speed = Math.max(0, prev.speed - statPenalty);
+        } else if (randomStat === 'luck') {
+          updatedStats.luck = Math.max(0, prev.luck - statPenalty);
+        }
+        return updatedStats;
+      });
+      
+      // Update narrative to reflect the complication
+      const complications = [
+        "Something goes wrong. You take a minor setback.",
+        `Your ${randomStat} is tested and you struggle a bit.`,
+        "The situation gets more complicated than you expected.",
+        "You encounter unexpected resistance."
+      ];
+      
+      const complication = complications[Math.floor(Math.random() * complications.length)];
+      setCurrentMissionState(`${action.narrative} ${complication}`);
+    } else {
+      // Normal positive outcome
+      setCurrentMissionState(action.narrative);
+    }
 
     // Update mission progress
     setMissionProgress(prev => Math.min(100, prev + 20));
-    
-    // Update mission state with a narrative
-    setCurrentMissionState(action.narrative);
     
     // Remove this action from available actions
     setActions(prev => prev.filter(a => a.name !== action.name));
