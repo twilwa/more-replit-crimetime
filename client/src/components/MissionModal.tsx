@@ -39,7 +39,8 @@ export default function MissionModal({ isOpen, onClose, mission }: MissionModalP
     };
   }, [isOpen, onClose]);
 
-  console.log("MissionModal rendering, isOpen:", isOpen, "mission:", mission);
+  // Debug output to help identify issues
+  console.log("MissionModal rendering", { isOpen, missionState: !!mission });
 
   const handleActionClick = (action: MissionAction) => {
     takeAction(action);
@@ -75,11 +76,13 @@ export default function MissionModal({ isOpen, onClose, mission }: MissionModalP
               <div className="p-6">
                 <div className="flex flex-col md:flex-row gap-6 mb-6">
                   <div className="flex-1">
-                    <img 
-                      src={mission?.image || ''} 
-                      alt={mission?.name || 'Mission image'} 
-                      className="w-full h-auto rounded-lg mb-4"
-                    />
+                    {mission.image && (
+                      <img 
+                        src={mission.image} 
+                        alt={mission.name} 
+                        className="w-full h-auto rounded-lg mb-4"
+                      />
+                    )}
                     
                     <div className="p-4 bg-dark rounded-lg border border-warning">
                       <h3 className="font-pixel text-warning text-sm mb-2">MISSION STATUS</h3>
