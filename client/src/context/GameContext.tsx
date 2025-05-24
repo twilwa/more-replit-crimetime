@@ -19,7 +19,61 @@ const initialPlayer: Player = {
   biggestHeist: 420,
   dailyMissions: 3,
   notoriety: 1,
-  inventory: []
+  inventory: [
+    {
+      id: 1,
+      name: "Ski Mask",
+      description: "A basic ski mask to hide your identity. Crime 101 essential gear.",
+      category: "Disguise",
+      rarity: "common",
+      icon: "fa-mask",
+      effects: [
+        {
+          type: "boost",
+          stat: "stealth",
+          value: 5
+        }
+      ],
+      equippable: true,
+      equipped: false
+    },
+    {
+      id: 2,
+      name: "Lockpick Set",
+      description: "Standard set of lockpicks. Gets the job done for most basic locks.",
+      category: "Tools",
+      rarity: "common",
+      icon: "fa-key",
+      effects: [
+        {
+          type: "boost",
+          stat: "speed",
+          value: 5
+        }
+      ],
+      equippable: true,
+      equipped: false
+    },
+    {
+      id: 3,
+      name: "Crypto Wallet",
+      description: "Digital wallet for storing your ill-gotten gains. Has enhanced security features.",
+      category: "Tech",
+      rarity: "uncommon",
+      icon: "fa-wallet",
+      effects: [
+        {
+          type: "protection",
+          stat: "luck",
+          value: 10
+        }
+      ],
+      equippable: true,
+      equipped: false,
+      isNFT: true,
+      tokenId: "CRIM3-0x42069"
+    }
+  ]
 };
 
 const initialState: GameState = {

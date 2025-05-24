@@ -86,6 +86,32 @@ export const useGameState = () => {
     }
   };
 
+  // Equip/unequip items
+  const equip = (item: any) => {
+    // Create a copy of the inventory
+    const updatedInventory = [...state.player.inventory];
+    
+    // Find the item
+    const itemIndex = updatedInventory.findIndex(i => i.id === item.id);
+    if (itemIndex === -1) return;
+    
+    // Toggle equipped status
+    updatedInventory[itemIndex] = {
+      ...updatedInventory[itemIndex],
+      equipped: !updatedInventory[itemIndex].equipped
+    };
+    
+    // Update player with new inventory
+    updatePlayer({ inventory: updatedInventory });
+    
+    // Update player stats on server
+    try {
+      apiUpdatePlayerStats();
+    } catch (error) {
+      console.error("Failed to update equipped items:", error);
+    }
+  };
+
   return {
     player: state.player,
     missions: state.missions,
@@ -94,6 +120,7 @@ export const useGameState = () => {
     updatePlayer,
     connectWallet,
     completeMission,
-    failMission
+    failMission,
+    equip
   };
 };

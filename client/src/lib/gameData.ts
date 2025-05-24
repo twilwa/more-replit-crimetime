@@ -34,6 +34,39 @@ export const initialMissions: Mission[] = [
     successRate: "45%",
     timeRequired: "2 hours",
     image: "https://images.unsplash.com/photo-1633265486501-0cf524a07213?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+  },
+  {
+    id: 4,
+    name: "NFT Counterfeit",
+    description: "Create and sell counterfeit NFTs to unsuspecting collectors. A high-tech approach to art theft.",
+    difficulty: "Medium",
+    cost: 15,
+    reward: "30-60",
+    successRate: "65%",
+    timeRequired: "45 min",
+    image: "https://images.unsplash.com/photo-1645378999496-33c8c2afe38d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+  },
+  {
+    id: 5,
+    name: "Rug Pull Reversal",
+    description: "Infiltrate a rug pull dev's wallet and return funds to scammed victims. Chaotic good crime.",
+    difficulty: "Hard",
+    cost: 75,
+    reward: "150-400",
+    successRate: "40%",
+    timeRequired: "3 hours",
+    image: "https://images.unsplash.com/photo-1614854262318-831574f15f1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+  },
+  {
+    id: 6,
+    name: "Meme Coin Pump",
+    description: "Create artificial hype for a worthless meme coin and cash out before the dump. Classic crypto scheme.",
+    difficulty: "Medium",
+    cost: 25,
+    reward: "50-100",
+    successRate: "70%",
+    timeRequired: "1 hour",
+    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
   }
 ];
 

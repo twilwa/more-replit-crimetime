@@ -1,3 +1,25 @@
+// Item effects type
+export interface ItemEffect {
+  type: 'boost' | 'protection';
+  stat: 'stealth' | 'intimidation' | 'speed' | 'luck';
+  value: number;
+}
+
+// Inventory item type
+export interface InventoryItem {
+  id: number;
+  name: string;
+  description: string;
+  category: string;
+  rarity: 'common' | 'uncommon' | 'rare' | 'legendary';
+  icon: string;
+  effects: ItemEffect[];
+  equippable: boolean;
+  equipped?: boolean;
+  isNFT?: boolean;
+  tokenId?: string;
+}
+
 // Player type
 export interface Player {
   id: number;
@@ -14,7 +36,7 @@ export interface Player {
   biggestHeist: number;
   dailyMissions: number;
   notoriety: number;
-  inventory: any[];
+  inventory: InventoryItem[];
 }
 
 // Mission type

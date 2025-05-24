@@ -122,54 +122,170 @@ export const useMission = () => {
     
     // If mission is not complete, increment progress
     if (missionProgress < 100) {
-      setMissionProgress(prev => Math.min(100, prev + 20));
-      setCurrentMissionState("You continue with the mission...");
+      // Each continuation adds 20% progress
+      const newProgress = Math.min(100, missionProgress + 20);
+      setMissionProgress(newProgress);
+      
+      // Generate dynamic narrative based on progress
+      const narratives = [
+        "You begin approaching the target location, scouting for any security...",
+        "You're inside now, carefully navigating through potential obstacles...",
+        "You're getting closer to the objective, but the risk is increasing...",
+        "Almost there! Just need to finish the job and make your escape...",
+        "Time to get out with the loot before anyone notices!"
+      ];
+      
+      // Select narrative based on progress
+      const narrativeIndex = Math.floor(newProgress / 20) - 1;
+      if (narrativeIndex >= 0 && narrativeIndex < narratives.length) {
+        setCurrentMissionState(narratives[narrativeIndex]);
+      } else {
+        setCurrentMissionState("You continue with the mission...");
+      }
+      
+      // Add random events based on progress
+      if (newProgress >= 60 && Math.random() < 0.3) {
+        // 30% chance of random event at 60% or more progress
+        const events = [
+          { 
+            message: "You spot a security guard ahead! Your stealth skills help you avoid detection.",
+            statBoost: { stat: "stealth", value: 5 }
+          },
+          { 
+            message: "You find an alternative route that saves time! Your speed improves.",
+            statBoost: { stat: "speed", value: 5 }
+          },
+          { 
+            message: "You encounter a bystander, but your intimidating presence keeps them quiet.",
+            statBoost: { stat: "intimidation", value: 5 }
+          },
+          { 
+            message: "You discover a hidden stash of extra loot! Your luck just improved.",
+            statBoost: { stat: "luck", value: 5 }
+          }
+        ];
+        
+        const randomEvent = events[Math.floor(Math.random() * events.length)];
+        setCurrentMissionState(randomEvent.message);
+        
+        // Apply stat boost
+        setPlayerStats(prev => {
+          const updatedStats = { ...prev };
+          // Type-safe update of the specific stat
+          if (randomEvent.statBoost.stat === 'stealth') {
+            updatedStats.stealth = Math.min(100, prev.stealth + randomEvent.statBoost.value);
+          } else if (randomEvent.statBoost.stat === 'intimidation') {
+            updatedStats.intimidation = Math.min(100, prev.intimidation + randomEvent.statBoost.value);
+          } else if (randomEvent.statBoost.stat === 'speed') {
+            updatedStats.speed = Math.min(100, prev.speed + randomEvent.statBoost.value);
+          } else if (randomEvent.statBoost.stat === 'luck') {
+            updatedStats.luck = Math.min(100, prev.luck + randomEvent.statBoost.value);
+          }
+          return updatedStats;
+        });
+      }
+      
       return;
     }
     
-    // Mission is complete, calculate success chance based on player stats
+    // Mission is complete, calculate success chance based on player stats and difficulty
     const successChance = calculateSuccessChance(playerStats, currentMission.difficulty);
-    const isSuccessful = Math.random() < successChance;
+    
+    // Add some drama with a random factor based on stats
+    const luckFactor = playerStats.luck / 200; // Max 0.5 boost from luck
+    const finalSuccessChance = Math.min(0.95, successChance + luckFactor); // Cap at 95%
+    
+    // Log the odds for dramatic effect
+    console.log(`Mission success chance: ${(finalSuccessChance * 100).toFixed(1)}%`);
+    
+    // Determine outcome
+    const roll = Math.random();
+    const isSuccessful = roll < finalSuccessChance;
     
     if (isSuccessful) {
       // Mission succeeded
-      const rewards = generateRandomReward(currentMission, potentialReward);
-      setMissionRewards(rewards);
+      // Calculate reward with bonus based on how well the player did
+      const performanceBonus = Math.max(0, (finalSuccessChance - 0.5) * 2); // 0-1 scale based on how much over 50% they were
+      const rewardMultiplier = 1 + (performanceBonus * 0.5); // 1x to 1.5x multiplier
+      
+      const baseRewards = generateRandomReward(currentMission, potentialReward);
+      const boostedRewards = {
+        ...baseRewards,
+        crimeCoin: Math.floor(baseRewards.crimeCoin * rewardMultiplier),
+        reputationGain: baseRewards.reputationGain + (performanceBonus > 0.5 ? 1 : 0)
+      };
+      
+      setMissionRewards(boostedRewards);
       
       // Apply rewards to player
       completeMission(
         currentMission.id, 
-        rewards.crimeCoin, 
-        rewards.funCoin,
-        rewards.reputationGain * 10 // Convert rep to experience
+        boostedRewards.crimeCoin, 
+        boostedRewards.funCoin,
+        boostedRewards.reputationGain * 10 // Convert rep to experience
       );
       
       // Close mission modal and show success modal
       setIsMissionModalOpen(false);
       setIsSuccessModalOpen(true);
     } else {
-      // Mission failed
-      const crimeCoinLost = currentMission.cost;
-      const funCoinGained = Math.floor(Math.random() * 3) + 1; // 1-3 fun coins for failing
+      // Mission failed - calculate severity of failure based on how close they were
+      const failSeverity = Math.min(1, (1 - finalSuccessChance) * 2); // 0-1 scale of how bad the failure is
       
-      // Generate random failure reason
-      const failureReasons = [
-        "You got caught by security cameras you didn't notice!",
-        "An unexpected police patrol showed up at the worst time.",
-        "Your getaway vehicle broke down during the escape.",
-        "A witness called the authorities on you.",
-        "You tripped the silent alarm system."
-      ];
+      // Base loss is the mission cost
+      const baseLoss = currentMission.cost;
+      // Extra loss scales with difficulty and failure severity
+      const difficultyMultiplier = currentMission.difficulty.toLowerCase() === "easy" ? 0.5 : 
+                                 currentMission.difficulty.toLowerCase() === "medium" ? 1 : 1.5;
+      
+      const extraLoss = Math.floor(baseLoss * failSeverity * difficultyMultiplier);
+      const crimeCoinLost = baseLoss + extraLoss;
+      
+      // More fun coins for spectacular failures
+      const funCoinGained = Math.floor(failSeverity * 5) + 1; // 1-6 fun coins depending on how badly they failed
+      
+      // Generate failure narrative based on stats
+      const weakestStat = Object.entries(playerStats).reduce(
+        (lowest, [stat, value]) => value < lowest.value ? {stat, value} : lowest, 
+        {stat: "", value: 100}
+      ).stat;
+      
+      // Generate narrative based on weakest stat
+      const failureReasons = {
+        stealth: [
+          "You weren't stealthy enough! Security cameras caught you red-handed.",
+          "Your noisy approach alerted the guards. Stealth fail!",
+          "You stepped on a creaky floorboard at the worst possible moment!"
+        ],
+        intimidation: [
+          "Your attempt to intimidate the security guard backfired completely.",
+          "No one took your threats seriously, and they called your bluff.",
+          "Your disguise was unconvincing and the staff immediately called security."
+        ],
+        speed: [
+          "You were too slow! The police arrived before you could escape.",
+          "Your getaway vehicle stalled and you couldn't outrun the cops.",
+          "You tripped during your escape and got caught in an embarrassing faceplant."
+        ],
+        luck: [
+          "Just bad luck! A random police patrol happened to drive by.",
+          "What are the odds? The owner returned early from vacation.",
+          "Murphy's Law in full effect - everything that could go wrong, did go wrong."
+        ]
+      };
       
       const lessonLearned = [
         "Next time, spend more time scouting the location first.",
         "You should invest in better equipment for jobs like these.",
-        "Consider improving your stealth skills for future missions.",
+        "Consider improving your " + weakestStat + " skills for future missions.",
         "Maybe bring a partner along next time for backup.",
-        "Try a less risky job until you build up more experience."
+        "Try a less risky job until you build up more experience.",
+        "This wasn't your day. Sometimes it's better to walk away than force it."
       ];
       
-      const randomFailureReason = failureReasons[Math.floor(Math.random() * failureReasons.length)];
+      // Pick random failure reason based on weakest stat
+      const failureReasonsForStat = failureReasons[weakestStat as keyof typeof failureReasons] || failureReasons.luck;
+      const randomFailureReason = failureReasonsForStat[Math.floor(Math.random() * failureReasonsForStat.length)];
       const randomLesson = lessonLearned[Math.floor(Math.random() * lessonLearned.length)];
       
       setMissionPenalties({
