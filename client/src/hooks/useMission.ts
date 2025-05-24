@@ -65,10 +65,10 @@ export const useMission = () => {
     });
     
     // Set potential reward
-    const [minReward, maxReward] = mission.reward.split('-').map(n => parseInt(n.trim()));
-    const reward = Math.floor(Math.random() * (maxReward - minReward + 1)) + minReward;
-    setPotentialReward(reward);
+    const baseReward = parseInt(mission.reward.replace(/[^0-9]/g, '')) || 100;
+    setPotentialReward(baseReward);
     
+    // Open the mission modal to start the mission
     setIsMissionModalOpen(true);
   };
 
