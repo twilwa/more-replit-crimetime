@@ -5,7 +5,9 @@ import { InventoryItem } from "@/types/game";
 import { useToast } from "@/hooks/use-toast";
 
 export default function InventoryTab() {
-  const { player, equip } = useGameState();
+  const gameState = useGameState();
+  const { player } = gameState;
+  const equip = gameState.equip;
   const { toast } = useToast();
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
@@ -62,18 +64,21 @@ export default function InventoryTab() {
                       key={item.id}
                       className={`p-2 bg-surface border rounded-lg cursor-pointer text-center ${
                         selectedItem?.id === item.id ? 'border-accent animate-pulse-neon' : 'border-gray-700'
-                      }`}
+                      } ${item.equipped ? 'ring-2 ring-accent' : ''}`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleItemClick(item)}
                     >
-                      <div className="w-10 h-10 mx-auto flex items-center justify-center mb-1">
+                      <div className="w-10 h-10 mx-auto flex items-center justify-center mb-1 relative">
                         <i className={`fas ${item.icon} text-lg ${
                           item.rarity === 'common' ? 'text-gray-400' :
                           item.rarity === 'uncommon' ? 'text-secondary' :
                           item.rarity === 'rare' ? 'text-accent' :
                           'text-primary'
                         }`}></i>
+                        {item.equipped && (
+                          <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full border border-dark" />
+                        )}
                       </div>
                       <div className="text-xs line-clamp-1">{item.name}</div>
                     </motion.div>

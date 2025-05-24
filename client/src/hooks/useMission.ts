@@ -311,7 +311,7 @@ export const useMission = () => {
     toast({
       title: "Rewards Collected",
       description: `You've earned ${missionRewards.crimeCoin} $CRIME and ${missionRewards.funCoin} $FUN`,
-      variant: "success"
+      variant: "default"
     });
   };
 

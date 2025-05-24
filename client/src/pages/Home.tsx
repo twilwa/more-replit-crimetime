@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import MissionModal from "@/components/MissionModal";
 import SuccessModal from "@/components/SuccessModal";
 import FailureModal from "@/components/FailureModal";
+import InventoryTab from "@/components/InventoryTab";
 import { useMission } from "@/hooks/useMission";
 import { motion } from "framer-motion";
 
@@ -28,12 +29,7 @@ export default function Home() {
       case "missions":
         return <MissionsTab />;
       case "inventory":
-        return (
-          <div className="bg-surface rounded-lg p-4 border border-primary neon-border mb-8">
-            <h2 className="font-crime text-2xl text-primary mb-4">Inventory</h2>
-            <p className="text-gray-300">Your inventory will be available soon...</p>
-          </div>
-        );
+        return <InventoryTab />;
       case "gang":
         return (
           <div className="bg-surface rounded-lg p-4 border border-primary neon-border mb-8">
