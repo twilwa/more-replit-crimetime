@@ -103,22 +103,22 @@ export default function MissionModal({ isOpen, onClose, mission }: MissionModalP
                           <div className="flex justify-between text-xs text-gray-400 mb-1">
                             <span>Success Chance</span>
                             <span className={`${
-                              calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'text-success' :
-                              calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'text-warning' :
+                              mission && calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'text-success' :
+                              mission && calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'text-warning' :
                               'text-destructive'
                             }`}>
-                              {Math.round(calculateSuccessChance(playerStats, mission.difficulty) * 100)}%
+                              {mission ? Math.round(calculateSuccessChance(playerStats, mission.difficulty) * 100) : 0}%
                             </span>
                           </div>
                           <div className="w-full bg-surface h-4 rounded-full overflow-hidden">
                             <motion.div 
                               className={`h-full ${
-                                calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'bg-success' :
-                                calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'bg-warning' :
+                                mission && calculateSuccessChance(playerStats, mission.difficulty) > 0.7 ? 'bg-success' :
+                                mission && calculateSuccessChance(playerStats, mission.difficulty) > 0.4 ? 'bg-warning' :
                                 'bg-destructive'
                               }`}
                               initial={{ width: 0 }}
-                              animate={{ width: `${calculateSuccessChance(playerStats, mission.difficulty) * 100}%` }}
+                              animate={{ width: `${mission ? calculateSuccessChance(playerStats, mission.difficulty) * 100 : 0}%` }}
                               transition={{ duration: 1 }}
                             ></motion.div>
                           </div>
