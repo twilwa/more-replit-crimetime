@@ -61,7 +61,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-dark text-white font-body min-h-screen overflow-x-hidden bg-grid">
+    <div className="bg-background text-white font-body min-h-screen overflow-x-hidden bg-grid">
       <Header />
       
       <motion.main 
