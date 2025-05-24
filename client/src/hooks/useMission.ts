@@ -278,23 +278,21 @@ export const useMission = () => {
       setMissionRewards(boostedRewards);
       
       // Record mission success in database
-      try {
-        await fetch('/api/mission-history', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            playerId: 1, // Default player ID
-            missionId: currentMission.id,
-            success: true,
-            crimeCoinChange: boostedRewards.crimeCoin,
-            funCoinChange: boostedRewards.funCoin,
-            experienceGained: boostedRewards.reputationGain * 10 // Convert rep to experience
-          })
-        });
-      } catch (error) {
+      fetch('/api/mission-history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playerId: 1, // Default player ID
+          missionId: currentMission.id,
+          success: true,
+          crimeCoinChange: boostedRewards.crimeCoin,
+          funCoinChange: boostedRewards.funCoin,
+          experienceGained: boostedRewards.reputationGain * 10 // Convert rep to experience
+        })
+      }).catch(error => {
         console.error("Failed to record mission history:", error);
         // Continue with gameplay even if database update fails
-      }
+      });
       
       // Apply rewards to player
       completeMission(
@@ -374,23 +372,21 @@ export const useMission = () => {
       });
       
       // Record mission failure in database
-      try {
-        await fetch('/api/mission-history', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            playerId: 1, // Default player ID
-            missionId: currentMission.id,
-            success: false,
-            crimeCoinChange: -crimeCoinLost, // Negative value for loss
-            funCoinChange: funCoinGained,
-            experienceGained: 5 // Small experience gain even on failure
-          })
-        });
-      } catch (error) {
+      fetch('/api/mission-history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playerId: 1, // Default player ID
+          missionId: currentMission.id,
+          success: false,
+          crimeCoinChange: -crimeCoinLost, // Negative value for loss
+          funCoinChange: funCoinGained,
+          experienceGained: 5 // Small experience gain even on failure
+        })
+      }).catch(error => {
         console.error("Failed to record mission history:", error);
         // Continue with gameplay even if database update fails
-      }
+      });
       
       // Apply penalties to player
       failMission(currentMission.id, crimeCoinLost, funCoinGained);
