@@ -46,10 +46,17 @@ export interface Mission {
   description: string;
   difficulty: string;
   cost: number;
-  reward: string;
-  successRate: string;
-  timeRequired: string;
-  image: string;
+  min_reward: number;
+  max_reward: number;
+  success_rate: number;
+  time_required: string;
+  image_url: string;
+  
+  // Frontend display properties (derived from backend data)
+  reward?: string;
+  successRate?: string;
+  timeRequired?: string;
+  image?: string;
 }
 
 // Leaderboard entry type

@@ -41,131 +41,235 @@ export const useMission = () => {
   const startMission = (mission: Mission) => {
     console.log("Starting mission:", mission.name);
 
-    // Check if player has enough crime coins
-    if (player.crimeCoin < mission.cost) {
-      toast({
-        title: "Not enough $CRIME",
-        description: "You don't have enough $CRIME to start this mission!",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Open the mission modal FIRST to make sure it's visible
+    // First open the mission modal to show loading state
     setIsMissionModalOpen(true);
-    
-    // Then set all the mission state
     setCurrentMission(mission);
     setMissionProgress(0);
-    setCurrentMissionState(`You're about to start the ${mission.name} mission. Ready to commit some crime?`);
+    setCurrentMissionState("Initializing mission...");
     
-    // Generate random actions for this mission
-    const missionActions = generateMissionActions(mission.difficulty);
-    setActions(missionActions);
-    
-    // Set initial player stats (slightly randomized)
-    setPlayerStats({
-      stealth: Math.floor(Math.random() * 30) + 50,
-      intimidation: Math.floor(Math.random() * 30) + 60,
-      speed: Math.floor(Math.random() * 30) + 40,
-      luck: Math.floor(Math.random() * 30) + 20
+    // Make API call to start the mission
+    fetch('/api/missions/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        playerId: 1, // Default player for now
+        missionId: mission.id
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to start mission');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        // Handle error case
+        toast({
+          title: "Mission Failed to Start",
+          description: data.message || "An error occurred while starting the mission",
+          variant: "destructive"
+        });
+        setIsMissionModalOpen(false);
+        return;
+      }
+      
+      // Success - update state with server data
+      setCurrentMissionState(data.missionState || `You're about to start the ${mission.name} mission. Ready to commit some crime?`);
+      setActions(data.actions || generateMissionActions(mission.difficulty));
+      setPlayerStats(data.playerStats || {
+        stealth: Math.floor(Math.random() * 30) + 50,
+        intimidation: Math.floor(Math.random() * 30) + 60,
+        speed: Math.floor(Math.random() * 30) + 40,
+        luck: Math.floor(Math.random() * 30) + 20
+      });
+      
+      // Calculate potential reward from min/max values
+      const baseReward = mission.min_reward + 
+        Math.floor(Math.random() * (mission.max_reward - mission.min_reward));
+      setPotentialReward(baseReward);
+      
+    })
+    .catch(error => {
+      console.error("Error starting mission:", error);
+      
+      // Fallback to client-side logic if API fails
+      setCurrentMissionState(`You're about to start the ${mission.name} mission. Ready to commit some crime?`);
+      setActions(generateMissionActions(mission.difficulty));
+      setPlayerStats({
+        stealth: Math.floor(Math.random() * 30) + 50,
+        intimidation: Math.floor(Math.random() * 30) + 60,
+        speed: Math.floor(Math.random() * 30) + 40,
+        luck: Math.floor(Math.random() * 30) + 20
+      });
+      
+      // Calculate potential reward from min/max values
+      const baseReward = mission.min_reward + 
+        Math.floor(Math.random() * (mission.max_reward - mission.min_reward));
+      setPotentialReward(baseReward);
+      
+      toast({
+        title: "Connection Issue",
+        description: "Playing in offline mode. Some features may be limited.",
+        variant: "destructive"
+      });
     });
-    
-    // Set potential reward
-    const baseReward = parseInt(mission.reward.replace(/[^0-9]/g, '')) || 100;
-    setPotentialReward(baseReward);
-    
-    console.log("Mission modal should be open now, isMissionModalOpen:", true);
-    
-    // Just to be extra sure
-    setTimeout(() => {
-      setIsMissionModalOpen(true);
-      console.log("Mission modal state after timeout:", true);
-    }, 100);
   };
 
   // Take an action during a mission
   const takeAction = (action: MissionAction) => {
-    // Type-safe stat update based on affected stat
-    if (action.affectedStat === 'stealth' || 
-        action.affectedStat === 'intimidation' || 
-        action.affectedStat === 'speed' || 
-        action.affectedStat === 'luck') {
-      
-      // Type-safe stat update
-      setPlayerStats(prev => {
-        const updatedStats = { ...prev };
-        if (action.affectedStat === 'stealth') {
-          updatedStats.stealth = Math.min(100, prev.stealth + action.bonus);
-        } else if (action.affectedStat === 'intimidation') {
-          updatedStats.intimidation = Math.min(100, prev.intimidation + action.bonus);
-        } else if (action.affectedStat === 'speed') {
-          updatedStats.speed = Math.min(100, prev.speed + action.bonus);
-        } else if (action.affectedStat === 'luck') {
-          updatedStats.luck = Math.min(100, prev.luck + action.bonus);
-        }
-        return updatedStats;
-      });
-    } else if (action.affectedStat === 'success') {
-      // Direct success bonus increases all stats a little
-      setPlayerStats(prev => ({
-        stealth: Math.min(100, prev.stealth + Math.floor(action.bonus / 4)),
-        intimidation: Math.min(100, prev.intimidation + Math.floor(action.bonus / 4)),
-        speed: Math.min(100, prev.speed + Math.floor(action.bonus / 4)),
-        luck: Math.min(100, prev.luck + Math.floor(action.bonus / 4))
-      }));
-    }
+    if (!currentMission) return;
     
-    // Risk calculation - higher risk actions can have consequences
-    if (action.risk && Math.random() * 100 < action.risk) {
-      // Action has some negative consequence based on the risk
-      const statPenalty = Math.ceil(action.risk / 10); // 1-5% penalty based on risk level
+    // Call the server API to process this action
+    fetch('/api/missions/action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        playerId: 1, // Default player for now
+        missionId: currentMission.id,
+        action
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to process mission action');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        toast({
+          title: "Action Failed",
+          description: data.message || "An error occurred processing your action",
+          variant: "destructive"
+        });
+        return;
+      }
       
-      // Choose a random stat to penalize
-      const stats = ['stealth', 'intimidation', 'speed', 'luck'];
-      const randomStat = stats[Math.floor(Math.random() * stats.length)];
+      // Update mission progress
+      setMissionProgress(prev => Math.min(100, prev + (data.progressIncrease || 20)));
       
-      // Apply the penalty
-      setPlayerStats(prev => {
-        const updatedStats = { ...prev };
-        if (randomStat === 'stealth') {
-          updatedStats.stealth = Math.max(0, prev.stealth - statPenalty);
-        } else if (randomStat === 'intimidation') {
-          updatedStats.intimidation = Math.max(0, prev.intimidation - statPenalty);
-        } else if (randomStat === 'speed') {
-          updatedStats.speed = Math.max(0, prev.speed - statPenalty);
-        } else if (randomStat === 'luck') {
-          updatedStats.luck = Math.max(0, prev.luck - statPenalty);
+      // Update narrative based on server response
+      setCurrentMissionState(data.narrative || action.narrative);
+      
+      // Update player stats based on action
+      if (data.statIncrease) {
+        const { stat, value } = data.statIncrease;
+        
+        // Type-safe stat update
+        setPlayerStats(prev => {
+          const updatedStats = { ...prev };
+          if (stat === 'stealth') {
+            updatedStats.stealth = Math.min(100, prev.stealth + value);
+          } else if (stat === 'intimidation') {
+            updatedStats.intimidation = Math.min(100, prev.intimidation + value);
+          } else if (stat === 'speed') {
+            updatedStats.speed = Math.min(100, prev.speed + value);
+          } else if (stat === 'luck') {
+            updatedStats.luck = Math.min(100, prev.luck + value);
+          } else if (stat === 'success') {
+            // Boost all stats a bit
+            updatedStats.stealth = Math.min(100, prev.stealth + Math.floor(value / 4));
+            updatedStats.intimidation = Math.min(100, prev.intimidation + Math.floor(value / 4));
+            updatedStats.speed = Math.min(100, prev.speed + Math.floor(value / 4));
+            updatedStats.luck = Math.min(100, prev.luck + Math.floor(value / 4));
+          }
+          return updatedStats;
+        });
+      } else {
+        // Fallback to client-side stat update if server doesn't provide it
+        if (action.affectedStat === 'stealth' || 
+            action.affectedStat === 'intimidation' || 
+            action.affectedStat === 'speed' || 
+            action.affectedStat === 'luck') {
+          
+          setPlayerStats(prev => {
+            const updatedStats = { ...prev };
+            if (action.affectedStat === 'stealth') {
+              updatedStats.stealth = Math.min(100, prev.stealth + action.bonus);
+            } else if (action.affectedStat === 'intimidation') {
+              updatedStats.intimidation = Math.min(100, prev.intimidation + action.bonus);
+            } else if (action.affectedStat === 'speed') {
+              updatedStats.speed = Math.min(100, prev.speed + action.bonus);
+            } else if (action.affectedStat === 'luck') {
+              updatedStats.luck = Math.min(100, prev.luck + action.bonus);
+            }
+            return updatedStats;
+          });
+        } else if (action.affectedStat === 'success') {
+          // Direct success bonus increases all stats a little
+          setPlayerStats(prev => ({
+            stealth: Math.min(100, prev.stealth + Math.floor(action.bonus / 4)),
+            intimidation: Math.min(100, prev.intimidation + Math.floor(action.bonus / 4)),
+            speed: Math.min(100, prev.speed + Math.floor(action.bonus / 4)),
+            luck: Math.min(100, prev.luck + Math.floor(action.bonus / 4))
+          }));
         }
-        return updatedStats;
-      });
+      }
       
-      // Update narrative to reflect the complication
-      const complications = [
-        "Something goes wrong. You take a minor setback.",
-        `Your ${randomStat} is tested and you struggle a bit.`,
-        "The situation gets more complicated than you expected.",
-        "You encounter unexpected resistance."
-      ];
+      // Remove this action from available actions
+      setActions(prev => prev.filter(a => a.name !== action.name));
       
-      const complication = complications[Math.floor(Math.random() * complications.length)];
-      setCurrentMissionState(`${action.narrative} ${complication}`);
-    } else {
-      // Normal positive outcome
+      // Generate a new replacement action
+      if (currentMission) {
+        const newAction = generateMissionActions(currentMission.difficulty, 1)[0];
+        setActions(prev => [...prev, newAction]);
+      }
+    })
+    .catch(error => {
+      console.error("Error processing mission action:", error);
+      
+      // Fallback to client-side logic if API fails
+      // Update stats based on action
+      if (action.affectedStat === 'stealth' || 
+          action.affectedStat === 'intimidation' || 
+          action.affectedStat === 'speed' || 
+          action.affectedStat === 'luck') {
+        
+        setPlayerStats(prev => {
+          const updatedStats = { ...prev };
+          if (action.affectedStat === 'stealth') {
+            updatedStats.stealth = Math.min(100, prev.stealth + action.bonus);
+          } else if (action.affectedStat === 'intimidation') {
+            updatedStats.intimidation = Math.min(100, prev.intimidation + action.bonus);
+          } else if (action.affectedStat === 'speed') {
+            updatedStats.speed = Math.min(100, prev.speed + action.bonus);
+          } else if (action.affectedStat === 'luck') {
+            updatedStats.luck = Math.min(100, prev.luck + action.bonus);
+          }
+          return updatedStats;
+        });
+      } else if (action.affectedStat === 'success') {
+        // Direct success bonus increases all stats a little
+        setPlayerStats(prev => ({
+          stealth: Math.min(100, prev.stealth + Math.floor(action.bonus / 4)),
+          intimidation: Math.min(100, prev.intimidation + Math.floor(action.bonus / 4)),
+          speed: Math.min(100, prev.speed + Math.floor(action.bonus / 4)),
+          luck: Math.min(100, prev.luck + Math.floor(action.bonus / 4))
+        }));
+      }
+      
+      // Update mission progress
+      setMissionProgress(prev => Math.min(100, prev + 20));
+      
+      // Set narrative
       setCurrentMissionState(action.narrative);
-    }
-
-    // Update mission progress
-    setMissionProgress(prev => Math.min(100, prev + 20));
-    
-    // Remove this action from available actions
-    setActions(prev => prev.filter(a => a.name !== action.name));
-    
-    // Generate a new replacement action
-    if (currentMission) {
-      const newAction = generateMissionActions(currentMission.difficulty, 1)[0];
-      setActions(prev => [...prev, newAction]);
-    }
+      
+      // Remove this action from available actions
+      setActions(prev => prev.filter(a => a.name !== action.name));
+      
+      // Generate a new replacement action
+      if (currentMission) {
+        const newAction = generateMissionActions(currentMission.difficulty, 1)[0];
+        setActions(prev => [...prev, newAction]);
+      }
+      
+      toast({
+        title: "Connection Issue",
+        description: "Playing in offline mode. Some features may be limited.",
+        variant: "destructive"
+      });
+    });
   };
 
   // Abort the current mission
