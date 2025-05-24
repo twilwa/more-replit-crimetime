@@ -7,6 +7,11 @@ type MissionCardProps = {
 };
 
 export default function MissionCard({ mission, onSelect }: MissionCardProps) {
+  const handleMissionStart = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event bubbling
+    console.log("Starting mission:", mission.name);
+    onSelect(mission);
+  };
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty.toLowerCase()) {
       case 'easy': return 'text-accent';
@@ -30,7 +35,7 @@ export default function MissionCard({ mission, onSelect }: MissionCardProps) {
       className="mission-card bg-dark rounded-lg overflow-hidden border border-primary hover:animate-pulse-neon transition-all cursor-pointer"
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
-      onClick={() => onSelect(mission)}
+      onClick={handleMissionStart}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
@@ -75,7 +80,7 @@ export default function MissionCard({ mission, onSelect }: MissionCardProps) {
           className="w-full bg-primary text-dark py-2 rounded font-pixel text-sm hover:bg-opacity-90 transition-all"
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
-          onClick={() => onSelect(mission)}
+          onClick={handleMissionStart}
         >
           START MISSION
         </motion.button>

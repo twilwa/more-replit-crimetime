@@ -5,6 +5,7 @@ import { generateMissionActions, calculateSuccessChance, generateRandomReward } 
 import { useToast } from '@/hooks/use-toast';
 
 export const useMission = () => {
+  console.log("useMission hook initialized");
   const { player, missions, completeMission, failMission } = useGameState();
   const { toast } = useToast();
   
@@ -38,6 +39,8 @@ export const useMission = () => {
 
   // Start a mission
   const startMission = (mission: Mission) => {
+    console.log("Starting mission:", mission.name);
+
     // Check if player has enough crime coins
     if (player.crimeCoin < mission.cost) {
       toast({
@@ -48,6 +51,10 @@ export const useMission = () => {
       return;
     }
 
+    // Open the mission modal FIRST to make sure it's visible
+    setIsMissionModalOpen(true);
+    
+    // Then set all the mission state
     setCurrentMission(mission);
     setMissionProgress(0);
     setCurrentMissionState(`You're about to start the ${mission.name} mission. Ready to commit some crime?`);
@@ -68,8 +75,13 @@ export const useMission = () => {
     const baseReward = parseInt(mission.reward.replace(/[^0-9]/g, '')) || 100;
     setPotentialReward(baseReward);
     
-    // Open the mission modal to start the mission
-    setIsMissionModalOpen(true);
+    console.log("Mission modal should be open now, isMissionModalOpen:", true);
+    
+    // Just to be extra sure
+    setTimeout(() => {
+      setIsMissionModalOpen(true);
+      console.log("Mission modal state after timeout:", true);
+    }, 100);
   };
 
   // Take an action during a mission
