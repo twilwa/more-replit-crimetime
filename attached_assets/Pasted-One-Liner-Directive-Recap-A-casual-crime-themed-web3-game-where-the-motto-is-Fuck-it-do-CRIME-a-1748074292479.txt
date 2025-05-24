@@ -1,0 +1,476 @@
+One-Liner Directive Recap
+A casual, crime-themed web3 game where the motto is “Fuck it, do $CRIME (as long as everyone’s having $FUN)!” – encouraging mischievous in-game crimes and shenanigans while ensuring players are enjoying themselves. It’s a light-hearted browser game that rewards risky fun and community engagement in equal measure.
+Core Gameplay Loop
+Pick a Crime or Caper: The player logs in (web browser, crypto wallet connected) and chooses an action – maybe a quick mission (e.g. pickpocketing, hacking a crypto wallet, a mini-heist). It’s simple to start so anyone can jump in, much like how Crabada’s idle gameplay was “easy to pick up and required little effort, allowing even the busiest individuals to get in on the fun”
+coingecko.com
+.
+Risk & Reward: Before undertaking the mission, the player stakes a small amount of $CRIME (and possibly some $FUN) as the “entry fee” or resources for the job. This creates a meaningful risk – you’re putting something on the line. The mission then plays out (through a quick interactive story, a mini-game, or a dice roll with some strategy elements). Success yields rewards (earn $CRIME and maybe some $FUN); failure means a loss (the staked $CRIME is lost or partially lost, and maybe you get a consolation prize in $FUN so you still had fun). The outcomes have some randomness plus player decisions, so it’s easy to try but mastering the strategy (choosing the right gear, timing, etc.) improves success rates.
+Upgrade & Re-engage: With rewards, the player can spend tokens on upgrades (better tools, getaway vehicles, disguises as NFTs) or just bank them for bigger heists. They might also earn experience or reputation. This improves their chances in future missions or unlocks new content. After gearing up, the player attempts more challenging missions or even tries a PvP action (like stealing from another player’s stash).
+Social & Community Loop: After a session, the player can check leaderboards on Discord/Telegram or brag about their haul. They might receive a Discord notification: “You pulled off a bank heist and earned 500 $CRIME!” or “Uh oh, someone sabotaged your last job!” This pulls them back in to retaliate or try again. The core loop encourages players to continuously alternate between PvE missions (to earn and build power) and PvP mischief (to compete and interact), all while engaging with the community for laughs and bragging rights.
+This loop is designed to be simple to learn (few clicks to do a mission) but hard to master (optimizing loadouts, timing, and choosing targets introduces depth). A casual player can have fun doing easy jobs, while hardcore players strategize the best way to maximize profit without getting robbed. The goal is that even when things go wrong (you fail a mission or get robbed), it’s done in a humorous, “all in good fun” way that makes you want to try again rather than rage quit.
+Game Systems and Economy Overview
+Overview: The game blends several systems – missions for solo play, heists and challenges for groups, and PvP interactions like theft and sabotage – all tied together by the $CRIME and $FUN token economy. Below is an overview of key systems and how they feed into the economy:
+PvE Missions (Jobs & Heists): These are the faucets of the economy where new tokens enter circulation as rewards. Players spend some resources (time, $CRIME for tools, or a bit of $FUN as energy) to attempt missions and earn $CRIME upon success. Missions range from petty crimes (easy, low stakes) to major heists (harder, require more planning or teamwork but yield bigger $CRIME rewards). For example: a “Hack a Crypto Exchange” job might require 10 $CRIME of gear and reward ~15 $CRIME if successful. A multi-stage “Bank Heist” could involve several players each staking some tokens for a chance at a large payout. Missions have cooldowns or an “energy” system to prevent infinite farming (a lesson from Axie Infinity’s oversupply issues – Axie had uncontrolled token farming until they imposed limits
+medium.com
+). This ensures not everyone can grind unlimited $CRIME with bots or alts.
+PvP Stealing & Sabotage: This is the competitive layer. Players can target others to steal a portion of their $CRIME or to sabotage an ongoing heist. For instance, you might spend a small fee (say 5 $CRIME as a bribe to an informant) to attempt stealing 20% of someone’s stash. If you succeed, you gain that chunk of $CRIME (your “crime pays” moment), while the target loses it. If you fail, you lose your bribe and maybe get penalized (e.g. you get “caught” and pay a fine in $FUN or lose some reputation). Sabotaging could mean intercepting another player’s heist mission – e.g., you spend some $CRIME to interfere; if the sabotage works, the heist crew loses some reward (which you might pocket part of). Crucially, PvP doesn’t create new tokens; it redistributes existing $CRIME among players and adds risk. We ensure this system has limits so it stays light-hearted: a cap on how much can be stolen in one go, and maybe a “share the fun” mechanism where a small cut of any loot stolen is set aside (either burned or given as $FUN tokens to the victim as consolation). This way, PvP is tense but not purely zero-sum cruelty – even the loser gains something (like a bit of $FUN or a funny NFT trophy titled “I got robbed and all I got was this NFT”). Overall, PvP adds excitement and player interaction, while also acting as a token sink (via bribes spent, portions burned, etc.) to help the economy.
+Reputation & Notoriety: As players commit more $CRIME (in-game), they build a reputation score or notoriety level. This is like experience or a leaderboard metric. Higher notoriety could unlock new missions (a legendary heist might only be offered to the most infamous players) or cosmetic titles. However, high notoriety might also make you a bigger target for PvP (the top criminal is juicy to rob!). This creates an emergent risk/reward: be the big boss and gain access to special content, but expect others to challenge you. The reputation system keeps long-term players engaged, striving for infamy, and provides bragging rights on social channels.
+Upgrades & Items: The game features simple itemization – e.g. tools, weapons, vehicles, gadgets – which come in the form of NFTs or just in-game assets. These items can provide small boosts (increase success rate of missions, defend against theft, etc.). Players can acquire items either by spending $CRIME/$FUN in an in-game shop (a token sink) or as loot rewards from missions. Items are generally permanent or reusable but might have durability (requiring repair with tokens, another sink) or one-time use for powerful consumables. Crucially, items make gameplay deeper (harder to master optimal use), and also add a progression path besides just token accumulation. Because items could be NFTs, players truly own them and could trade them peer-to-peer. We’ll keep their functionality modest (no overpowered pay-to-win) and more on the fun cosmetic side for MVP, expanding later.
+Gangs (Guilds/Teams): While not essential for MVP, the design includes the concept of forming gangs or crews. Players can band together in a gang, which gives them a shared identity (perhaps even a gang badge NFT) and possibly minor in-game benefits when cooperating. Gangs can have group chats on Discord, compete on leaderboards as a team, or participate in crew vs crew heists or PvP contests. This adds a social layer that encourages long-term community building. A gang might pool some $CRIME into a communal treasury for big operations (another sink/faucet interplay) and earn collective $FUN rewards for achievements (like “Most heists completed by a crew this week”). Gangs tie into Discord naturally by having their own channels/roles. For now, this is a planned expansion, but even at MVP we can hint at it (e.g. show “Gang” as a coming-soon feature to excite players).
+Economy Summary: Every feature is built to reinforce a positive-sum, circular economy. PvE missions inject value (tokens) for players who put in effort, while requiring some cost to attempt (balancing issuance). PvP primarily redistributes value and creates conflict (which is fun content) while also removing a little from the system (through burns or fees) to counter inflation. Any time we add a faucet (a way to earn $CRIME or $FUN), we introduce a corresponding sink (a way to spend or lose those tokens) to maintain balance
+medium.com
+. This faucet-and-sink balance is vital – past Web3 games have learned that it’s not about how many tokens you have, but about controlling their flow with sinks to avoid oversupply
+medium.com
+. For example, if missions are churning out too much $CRIME, we can adjust mission costs or introduce new sinks (like requiring $CRIME to enter a special event) to keep the economy sustainable. Finally, the dual-token setup ($CRIME and $FUN) itself is part of the economy design: $CRIME is the primary currency earned in-game and spent in-game, while $FUN plays more of a special role (detailed in Tokenomics below). This separation helps target different uses and can reduce sell-pressure on a single token by splitting utility
+coinmarketcap.com
+. All economy systems are kept as simple as possible (to build fast), leveraging existing token standards and minimal on-chain logic, while leaving room to grow and tweak the economic design as we gather data from the live game.
+PvE Missions & PvP Mechanics
+Both PvE and PvP are core to “do $CRIME and have $FUN”. Here we outline how each works in practice:
+PvE (Player vs Environment) Mechanics
+PvE missions are the bread-and-butter for players to earn rewards and experience the game’s story (in a comedic crime universe). Key aspects of PvE:
+Mission Types: A variety of missions will be available, differing in difficulty, required stake, and reward. Examples:
+Street Hustle: Very easy, e.g. tagging a wall with graffiti or petty theft. Costs nothing or a tiny amount (maybe just some time/energy), nearly guaranteed success, yields a small $CRIME reward and a bit of $FUN (because you had fun doing it). This is for onboarding new players.
+Jobs: Medium difficulty tasks like robbing a convenience store, hacking a crypto ATM, or hustling a shady broker. Requires some gear or small $CRIME stake (e.g. spend 2 $CRIME on lockpicks) and has a moderate chance of failure. Success might yield ~5–10x the stake in $CRIME (plus perhaps a chance at an NFT item drop). Failure means you lose the stake (sink) and maybe trigger a funny outcome (e.g. you end up in jail briefly, or a meme “Wasted” screen, and perhaps earn 1 $FUN as a consolation for the laughs).
+Heists: High-stakes PvE, possibly requiring multiple players or sequential skill checks. For instance, a Bank Heist might have roles (hacker, getaway driver, mastermind) – players team up (via Discord coordination) and each puts in some $CRIME for equipment. The heist might involve several stages (disable alarm, crack vault, escape police). Each stage could be a mini-interaction or chance roll. If all goes well, the heist pays out a large sum of $CRIME (split among participants) and maybe unique NFTs (like “Bank Loot Bag” containing a random item). If it fails at any point, there’s a risk of losing some or all of the stake. These heists are hard to master: good coordination and perhaps owning better gear (NFT items) improve odds. They are meant to be high thrill, high reward.
+Mission Resolution: The outcome of missions can be determined by a mix of player choices and randomness. Under the hood, since we want to avoid heavy on-chain computation, the game server can simulate the mission and produce an outcome. To keep things fair and transparent without complex Solana contracts, we might use a verifiable randomness source (like a simple oracle or hash seed) to add randomness that players trust isn’t rigged. However, for MVP we might go simpler (server-side random with eventual plans to improve trust). The results (success or fail, loot gained or lost) are then recorded and the appropriate token transfers happen: e.g., mint new $CRIME to the player’s wallet for rewards (or transfer from a reward pool), and if any tokens were lost/burned, remove them from circulation.
+Story & Humor: Each mission will be wrapped in a fun narrative referencing crypto culture. For example, a mission might be described as “Rug Pull Rescue – break into a dev’s wallet to return funds to rug-pulled investors” or “Ponzi Scheme Prank – you run a mini Ponzi but exit before it collapses.” These narratives keep the tone light. Even failing a mission should trigger a humorous message, like “You got caught by the Crypto Police! They took your stash as bail.” This ensures PvE is entertaining, not just a grind.
+Scaling Difficulty: To keep it challenging, missions will scale or new ones unlock as players level up. Also, an energy system or limited number of missions per day will be in place to avoid infinite grinding. The energy could reset daily or be restored with $FUN tokens (a sink for $FUN – spend some $FUN to do extra missions if you’re eager). This cap not only prevents bot abuse but also creates a natural pacing, so players don’t exhaust all content in one day.
+PvP (Player vs Player) Mechanics
+PvP introduces the “crime vs crime” element – players can mess with each other in a playful way. We want PvP to be significant enough that players feel thrill and risk, but balanced so that it doesn’t scare people away or become toxic. Here’s how PvP works:
+Theft (Steal $CRIME): Any player with a stash of $CRIME earned from missions becomes a potential target for theft. Players can initiate a theft attempt by selecting a target (perhaps from a leaderboard or a pool of recently active players) and spending a small amount of $CRIME or $FUN to “prepare” (this represents hiring informants or buying hacking tools – a built-in cost). The theft has a probability of success influenced by factors like the target’s defense level (if they bought security upgrades or have low notoriety) and the thief’s skill (maybe determined by an item or their own notoriety). If the theft succeeds, the thief gets away with a cut of the target’s $CRIME holdings – e.g., 10% of their wallet (with perhaps an upper limit to avoid wiping out whales in one go). If 100 $CRIME was in the target’s wallet, the thief steals 10 $CRIME. To keep things positive-sum, not all of that 10 need come from the target’s balance – we could design it such that maybe 8 comes from the target (so they lose 8), and 2 is newly minted or taken from a prize pool (so the thief still gets 10). Or alternatively, if we want strict no-inflation here, the thief gets 10 from the target and then gives 2 $FUN back as a consolation. We might experiment with these values. Additionally, on a successful theft, we could burn a fraction of the stolen amount (say 1 $CRIME) as a “crime tax” or lost in the scuffle, which acts as a token sink to fight inflation
+coingecko.com
+. If the theft fails, the thief loses their stake (which might be burned or given to the target as compensation – e.g., “Your security system caught the thief! You earned 5 $FUN from fines”). This way, attempting theft is dangerous: you could end up poorer than before if you fail.
+Sabotage (PvP during Missions): When a player (or team) is on a big mission (like a heist), other players can spend tokens to interfere. This could be implemented as a timed event: e.g., a heist might take 1 hour to complete, during which a sabotage window of 15 minutes is open where others see “Bank Heist in progress” and can attempt to mess it up. A sabotaging player might spend some $CRIME to send the police tip-offs or DDoS the hacker’s connection. The game would then reduce the success chances for the heist. If the heist fails due to sabotage, the saboteur earns a reward (perhaps a portion of the would-be loot or a flat $CRIME reward for “helping the cops”) and the heist crew loses some of their stake. If the saboteur fails (maybe the crew had counter-measures), then the saboteur just wasted their tokens. Sabotage adds an interactive competitive layer, and because both parties are spending resources ($CRIME to initiate sabotage, and possibly the heist crew spent extra on counter-measures), it sinks tokens while creating drama. For MVP, sabotage might be a bit advanced to implement fully, but it’s conceptually similar to how Crabada allowed players to loot each other’s mining expeditions
+coingecko.com
+. We plan to include at least one basic PvP interaction at launch (likely theft) and can expand to more nuanced ones like sabotage in later updates.
+PvP Leaderboards & Seasons: To encourage friendly competition, the game will have leaderboards for top thieves, best defenders, etc. For example, “Top 10 $CRIME Earners this Week” or “Most Epic Heist Completed” or fun ones like “Biggest Loser (most $FUN from fails)”. These leaderboards reset periodically (seasons) and can grant $FUN or special NFT badges to winners. This seasonal approach keeps the PvP fresh and gives new players a chance to climb in new seasons even if they missed out before. It also incentivizes consistent engagement – if you want to be the top dog of the season, you’ll keep playing (long-term engagement goal). Through seasonal rewards, we give out $FUN or cosmetic NFTs instead of large $CRIME, to avoid inflating the main currency too much while still rewarding players with value.
+Overall, PvP is tuned to be opt-in and fun, not purely punitive. Players who really dislike PvP can minimize their exposure (e.g., keep most of their $CRIME spent or staked in something so there’s less to steal, or buy a “vault” item that protects a portion of holdings). And because even losers get something (consolation $FUN or at least a funny story), we uphold the “everyone’s having $FUN” ethos. The interplay of PvE and PvP ensures there are multiple playstyles: a risk-averse player might stick to safer missions and invest in defense, whereas a thrill-seeker might go rogue stealing from everyone. The game supports both, tied together by the common economy.
+Tokenomics Design (Faucets & Sinks)
+A robust tokenomic design is critical to prevent the game economy from collapsing like many early P2E games did
+coingecko.com
+. We have two tokens, $CRIME and $FUN, and we carefully plan how each is earned (faucets) and spent or removed (sinks). The guiding principle is balance – any faucet has an associated sink, and incentives align to reduce sell pressure and encourage players to keep tokens in the ecosystem. Roles of the Tokens:
+$CRIME: This is the primary in-game currency token. It’s thematically the “loot” or “currency of crime.” Players earn $CRIME by completing missions, winning PvP steals, and other gameplay achievements. $CRIME is used to pay for most in-game actions: buying equipment, entering high-level missions, bribing for PvP, etc. We expect $CRIME to be an inflationary token – its supply will increase as players play (like SLP in Axie). There is no hard cap on $CRIME, but we’ll dynamically control its issuance via game balance (adjust rewards, add sinks) to maintain value. Think of $CRIME as the utility token that makes the game run day-to-day
+coinmarketcap.com
+. It might eventually be listed on exchanges for players who want to trade it, but within the game it’s the standard currency.
+$FUN: This is a special/secondary token aimed at representing the “fun” and community engagement. $FUN might have a fixed supply or a much slower inflation schedule – more like a governance or VIP token
+coinmarketcap.com
+. We can distribute $FUN as rewards for community-driven or long-term milestones: e.g., leaderboard winners get $FUN, or holding a certain amount of $CRIME for a long time yields some $FUN (rewarding loyalty). $FUN can be spent on cosmetic items, special events, or boosting social features (for example, spending $FUN to create a custom gang badge NFT, or to trigger a server-wide mini-event like a “double rewards hour” – something fun!). $FUN may also confer governance rights in the future: holders could vote on new mission ideas or game direction. By giving $FUN broader utility and tying it to long-term engagement (and possibly capping its supply), we encourage players to hold $FUN or reinvest it into the game rather than cashing out
+coinmarketcap.com
+. In essence, $FUN is the “meta” token – less about immediate gameplay power, more about community and future value.
+Faucets (Earn $CRIME/$FUN):
+Missions and Heists (PvE): The primary faucet for $CRIME. Every successful mission mints a certain amount of new $CRIME to the player as reward. The amount is based on difficulty and possibly player level. For $FUN, PvE is not a major direct faucet except maybe for special accomplishments (e.g., first time completion of a campaign might grant a bit of $FUN or airdrop).
+PvP Theft Rewards: PvP doesn’t create new $CRIME (it transfers existing), but it can act as a faucet for $FUN – for example, we might reward thieves and victims with a small amount of $FUN for participating (the thief “had fun” doing the crime, the victim “earned fun” in lieu of lost money). Also seasonal PvP rankings would grant $FUN to top players. This gets $FUN into circulation among the most active community members.
+Community & Social Rewards: We want to distribute some $FUN to players for being part of the community. For instance, participating in Discord events, being active daily, referrals of new players, or creating fan art/memes could be rewarded with $FUN tips. A Discord/Telegram bot could facilitate this (e.g., “!tip” commands). We can allocate a small community fund of $FUN that moderators distribute for contributions. This faucet encourages positive behavior and content creation.
+Staking/Yield (Potential): Down the line, we might allow players to stake $CRIME or $FUN in certain contracts (or lock them in the game) to earn yields or dividends. For example, locking up $CRIME in a “Vault” might passively generate $FUN over time (as a reward for reducing circulating $CRIME, easing sell pressure). This kind of faucet doubles as a sink (since you can’t use what’s staked). We would use template Solana staking contracts if we go this route, to avoid custom code. For MVP this might be unnecessary, but it’s in the design arsenal for later to incentivize long-term holding.
+Sinks (Spend/Lose $CRIME/$FUN):
+Mission Costs & Failure Penalties: As noted, many missions require an upfront spend of $CRIME (or items that cost $CRIME) to attempt. Those fees are essentially removed from the player’s wallet. We can design it such that a portion of mission fees are burned (permanently removed from supply) to counter inflation. Similarly, if a mission fails and the player loses their staked tokens, those could be burned or partially go to some treasury. For example, a 5 $CRIME fee to start a mission might burn 3 and put 2 into a reward pool (used to pay out PvP consolation prizes or future events). Burning tokens helps limit net supply growth
+coingecko.com
+.
+PvP Bribes and Defense: Engaging in PvP costs tokens – thieves spend bribes (in $CRIME) that get burned or given to targets, and defenders might spend $CRIME on security measures (alarms, guards) which are sinks. If a theft or sabotage attempt fails, the attacker’s spent tokens could be partially burned or awarded to the would-be victim. This way, every PvP attempt consumes tokens regardless of outcome (success just shifts tokens between players with a small tax).
+Upgrades & Items: Purchasing equipment, cosmetics, or upgrades will cost tokens. For example, a better lockpick kit NFT might cost 50 $CRIME. These payments could go into a central treasury (which could later be used for rewards or buybacks) or be partially burned. Cosmetic items might cost $FUN, providing a sink for $FUN specifically (e.g., a cool character skin costs 10 $FUN, which when spent might be burned since $FUN could be limited). By having desirable vanity items for $FUN, we encourage those who earn $FUN to spend it in-game rather than sell it off – reducing sell pressure and keeping the value within the community.
+NFT Minting or Trading Fees: If players can mint certain NFTs (like a custom gang badge or a limited edition loot box) using tokens, those mint fees act as sinks. For instance, maybe a gang creation requires a “gang token” NFT that costs 1000 $CRIME to mint – a heavy sink meant for group effort. Trading NFTs in a marketplace might have a small fee payable in $CRIME or $FUN (which we could burn or allocate to a community treasury).
+Limited-time Events & Lotteries: We can introduce fun events where players can spend tokens for a chance at a prize. For example, a weekly lottery where players buy tickets with $CRIME or $FUN; most of those tokens are burned, and one winner gets a payout (perhaps in $FUN or a rare NFT). This is essentially a voluntary sink (like a raffle) that also doubles as a game feature players enjoy. Because it’s voluntary and fun, it doesn’t feel like a tax but still removes tokens from circulation.
+Inactivity Decay (maybe): To encourage active play, we might implement a soft decay on huge idle hoards of $CRIME. For example, if someone hasn’t logged in for 60 days, a small percentage of their in-game stash is “seized by authorities” (burned or moved to community treasury). This discourages just hoarding and quitting. However, this is a delicate design and might not be needed if other sinks suffice, so it’s just a consideration.
+Balancing and Anti-Sell Pressure: Every sink listed is there to ensure that players always have useful ways to spend their $CRIME and $FUN within the game, rather than immediately selling them on the market. The idea of positive-sum play also means we want players to feel they are gaining value or entertainment by keeping tokens in-game. We’ll regularly monitor the in-game economy (token issuance vs burning). If $CRIME supply is inflating too fast relative to demand, we will introduce new sinks or reduce faucets (e.g., lower mission rewards slightly or add a new expensive item players want). This adaptive approach is crucial because as Erina Azmi noted, ignoring oversupply for too long can be fatal
+medium.com
+. We won’t wait 6 months to adjust if the economy tilts; we’ll react quickly via game updates. Furthermore, by using a dual-token model wisely, we leverage “currency distancing” – separating the in-game utility token ($CRIME) from a more value-holding token ($FUN)
+coinmarketcap.com
+. Players who just want to play can transact mostly in $CRIME (so if speculators pump or dump $FUN on exchanges, it doesn’t directly ruin gameplay costs), and $FUN holders who believe in the game’s long-term success can stake or spend $FUN for unique benefits without flooding the market with $CRIME. Other games have shown that dual tokens can reduce some sell pressure on the primary token
+coinmarketcap.com
+, though we remain cautious since if both tokens are freely traded, speculation can affect both
+coinmarketcap.com
+. Initially, we might not list $FUN on exchanges at all – it could circulate only in-game or via OTC among community – to maintain stability and focus on its utility rather than immediate monetary value. In summary, our tokenomics design ensures a continuous loop: Play -> Earn -> Spend -> Play. By keeping this loop balanced and fun, the game aims to avoid the dreaded hyperinflation that turned many P2E games into unsustainable traps
+coingecko.com
+coingecko.com
+. Instead, we create a sustainable, engaging economy where doing $CRIME is profitable but always comes with costs, and having $FUN is both literally and figuratively the goal.
+NFT Integration Ideas
+NFTs in this game serve to enhance the experience (collectibles, cosmetics, bragging rights) without over-complicating development or creating pay-to-win barriers. We’ll use straightforward NFTs – likely SPL token standard on Solana for NFTs – that can be easily minted, traded, and displayed. Some integration ideas:
+Cosmetic Items & Skins: Players love to personalize their avatar or profile. We can have NFTs that represent clothing (e.g. a “Hacker Hoodie”, “Clown Mask”, “Baller Suit”), accessories (gold chains, a pet crypto-kitty accomplice, etc.), or even custom backgrounds for their profile card. These cosmetics might give tiny in-game benefits or none at all – mainly they’re for showing off. Because they’re NFTs, if a player owns one, the game will render their character with that cosmetic. These could be sold in an in-game shop for $FUN or awarded during events. Being NFTs, players can also trade them on marketplaces like Magic Eden if they want. Importantly, since these are purely cosmetic (or minor boosts), a new player without NFTs is not at a serious disadvantage – they’re just less fancy looking. This fits our light-hearted, inclusive vibe.
+Gang Badges & Turf NFTs: If we implement gangs (clans), we can introduce NFTs that represent gang ownership or turf. For example, the game world might have districts (District 1, 2, etc. or neighborhoods like “Blockchain Bay” or “Solana City”). A gang that dominates a season could earn a District NFT for the next season – effectively a badge that says “We control this turf”. That NFT could confer a small bonus (e.g. all gang members get +5% rewards on missions in that district). Or a gang could design a logo and mint it as an NFT badge for their members to proudly display on their profiles. Technically, a gang badge could just be a token in members’ wallets that the UI reads to show their affiliation. This fosters social bonds and rivalry between groups. These NFTs wouldn’t be complex to implement (just mint images with metadata), but would add a lot of flavor.
+Collectible “Crime Cards”: We could have a series of collectible NFTs featuring infamous crypto-crime moments or memes. For instance, cards for “The Rugpuller”, “The Whale”, “The Hacker”, each with artwork and a funny description. Players might earn these cards by completing specific achievements (like a trophy). One could imagine a set of 50 cards to collect, encouraging players to trade with each other to complete their collection. It’s a fun nod to crypto culture (each card could reference a real meme or event in tongue-in-cheek manner) and gives completionist players something to do long-term. These collectibles might be purely for fun, or could have a minor use (if you collect a full set, maybe you combine them for a reward, etc., likely an expansion idea).
+Boost NFTs (Use-with-care): We can have some NFTs that actually provide gameplay boosts, but we will handle these carefully to not imbalance the game. For example, an “Upgraded Getaway Car” NFT might grant +10% reward on heists when used, or a “Bulletproof Vest” NFT reduces chance of being stolen from by 5%. These can be obtained by playing (maybe very lucky mission drops) or purchased in limited sales. Because they’re NFTs, there’s provable ownership and scarcity. We’ll avoid making any single boost NFT too powerful or required – they should feel like nice-to-have extras or goals to strive for, rather than outright selling victory. This keeps the game fair for those who don’t spend money, while giving monetization avenues (selling some boost NFTs) for us. Template wise, these are static attribute NFTs we can implement easily (just check in game code “if player has Vest NFT, apply effect”).
+Easy Minting & Integration: On the development side, we aim to use existing NFT frameworks (like Metaplex Candy Machine or pre-built NFT mint contracts) to distribute these NFTs. For MVP, we might start with just a few NFTs (perhaps a “Founders Badge” NFT given to early players, and one or two cosmetic items in a shop). This can be done with minimal custom code by using Solana’s standard token program: mint an NFT collection, drop to users via airdrop or simple purchase transactions. The game’s front-end will just read from the wallet which NFTs the player has and display the corresponding effects. Because this doesn’t require complex on-chain logic (just reading token metadata), it’s straightforward.
+Avoiding Complexity: We will avoid any complex NFT mechanics at first (no breeding, no dynamic NFTs that evolve, etc.) since those would require more development. All NFTs are static collectibles or items. This ensures we hit MVP quickly. As we expand, we might consider more advanced NFTs (like maybe your character itself is an NFT that levels up, or NFTs that can be merged), but only once core gameplay is solid.
+In summary, NFTs in our game provide ownership and community identity: players can truly own their look and their trophies, which is a big appeal of web3 gaming. They also serve as a revenue model (selling cosmetics) that doesn’t break the economy (players spending $CRIME/$FUN on NFTs actually helps sinks). It’s a win-win: players get cool stuff and a sense of belonging, and the game gets more engaging content without breaking the indie budget (we leverage existing NFT tech).
+Discord & Telegram Integration Ideas
+Because a lot of crypto gaming community lives on Discord and Telegram, we want to tightly integrate these platforms to enhance the social experience and retention. Here’s how we plan to do that:
+Game Bots for Notifications: We will set up a Discord bot (and a Telegram bot) that is connected to the game backend. When significant events happen in the game, the bots can push notifications to a channel or directly to users. For example:
+A global “crime feed” channel where the bot posts fun announcements: “Player123 just pulled off the Great Train Robbery and earned 300 $CRIME!”, “Watch out! PlayerXYZ is now the most wanted with a 5000 $CRIME bounty on their head!” This creates hype and storylines that players follow even when not in-game. It makes the game feel alive and timely because every day there’s news (much like reading crypto Twitter drama, but it’s game events).
+Personal DMs/alerts via the bot: If a player’s account is linked to Discord/Telegram, the bot can DM them “Your bank heist is complete, check your loot!” or “Alert: someone tried to steal from you while you were away!”. These notifications draw players back into the game and also add excitement (getting a DM that you were attacked will likely spur you to log in and respond).
+Leaderboard summaries: The bot can post daily or weekly leaderboards to a Discord channel, e.g., an embed showing Top 10 $CRIME holders, Top 10 thieves of the week, etc. This public recognition motivates competition. It’s similar to how some games tweet or announce their top players. On Discord/Telegram it’s within the community where it fosters rivalries and camaraderie.
+Bot Commands and Mini-Interactions: Beyond notifications, the Discord bot could allow basic interactions. For instance:
+Players might check their profile or balance with a command like !profile to have the bot display their current $CRIME, $FUN, and stats right in Discord.
+Maybe even initiate simple missions via text: e.g., !heist could return a mini choose-your-own-adventure prompt, and the result (though for actual gameplay our web app is primary, a mini Discord text game could be a fun alternate interface for simple tasks or a way to earn small $FUN by engaging on Discord).
+Quizzes or trivia hosted by the bot: e.g., daily trivia about crypto or the game story, where correct answers earn a bit of $FUN. This keeps chat active and educates players on crypto culture (tying into the theme).
+We’ll start with basic read commands and notifications at MVP, and can expand to interactive commands as we see usage.
+Community Moderation and Roles: Integration also means using Discord for community building. We’ll set up special roles that correspond to game achievements. For example, if someone reaches “OG Gangster” level in game, the bot can assign them a Discord role of the same name (with a flashy color). Or if someone holds a rare NFT, they get a special badge role. This not only validates status but encourages others to reach it. Also, gang affiliation can be mirrored on Discord: members of a gang can have a role or nickname prefix, and private gang channels moderated by the bot (only accessible if you link your account showing you have that gang’s NFT badge). This strengthens the identity and loyalty aspect via Discord.
+Telegram Broadcasts: Not everyone uses Discord, so a Telegram channel or bot will replicate some of these features. A Telegram bot can broadcast the same event feed: “X did Y” updates, and allow simple /balance queries etc. Telegram is also great for quick mobile notifications. We imagine many players might want an alert on their phone if something happens, which Telegram can do easily. We can also use Telegram for quick polls or feedback (“What new mission theme do you want?”) feeding into the game’s development decisions (community governance light).
+Onboarding via Social: We’ll leverage these platforms to onboard users. For instance, a new user can start by interacting with the bot: !start on Discord might give them a link to the web game and maybe a referral code tracked. We could have the bot give new users a small gift (like 1 $FUN or a basic NFT) when they link their wallet, as an incentive. Additionally, announcements of major updates or events will be posted in these channels to keep everyone informed.
+Ensuring it’s Light and Fun: We have to be careful that these integrations remain fun and not spammy. We’ll let users opt-in to personal DMs and maybe set preferences (maybe someone doesn’t want a ping at 3am that they got robbed – we can allow them to mute or schedule quiet hours). The tone of the bot messages will stay in theme: witty, maybe a bit snarky or meme-y, as if the bot is the game’s narrator or a news reporter from the seedy underbelly of Crypto City. This adds to the game’s personality.
+Technically, implementing a Discord bot and a Telegram bot is quite feasible on an indie budget – lots of libraries exist, and since it’s off-chain interaction, it’s straightforward web APIs. We just have to secure the connections to ensure the bot only reads appropriate game data and doesn’t expose anything sensitive. By tying into Discord and Telegram, we essentially make community a core part of the game loop. Players will be chatting, plotting, showing off, and even playing mini aspects of the game through these platforms. This drives retention (people stick around for the community) and organic growth (friends invite each other, outsiders see the cool heist posts and want to join).
+MVP Version Outline
+To get to market quickly on an indie hacker budget, we propose a lean MVP focusing on the most essential fun elements. The MVP (Minimum Viable Product) will deliver the core experience of “do crime, have fun” with minimal technical complexity. Here’s what the MVP will include:
+Basic Web App (Browser Game): A simple web frontend where players connect their Solana wallet (using a wallet adapter like Phantom for ease). The UI will be lightweight – think a few pages or even a single-page app with modals. Key components:
+Home/Dashboard: shows player stats (current $CRIME, $FUN, notoriety level, maybe avatar), and lists available actions (missions, PvP).
+Missions Page: with a few selectable PvE missions. For MVP, we can implement maybe 3 mission types: one easy freebie mission, one medium mission, one hard heist (possibly requiring 2 players, which we can test with two willing users or allow solo with lower success chance). Missions are mostly text-based outcomes with maybe a simple progress bar or animation (no heavy graphics needed at first, though we’ll make it look thematically retro-cool if possible with CSS).
+PvP Page: allow a basic theft attempt. For MVP, we might do a pared-down version: players can attempt to rob a “bank” which actually is a global pot funded by failed missions or something, rather than targeting specific players (this avoids needing matchmaking or concurrency issues early on). Alternatively, if we have a small community in testing, we can allow targeting by username if online. But to keep it simple, even a dummy PvP “steal from the vault” that has a success/fail and some leaderboard could suffice to show the concept.
+Inventory/Shop: a simple section showing if the player has any items or NFTs (MVP might have none or just a placeholder), and possibly a shop with one or two items (e.g. buy a Crowbar for 5 $CRIME to improve medium mission success by 5%). The shop transaction can be just an on-chain transfer or a fake off-chain for now with trust. If on-chain, we’d integrate a simple transaction where player signs to spend tokens and we mint/give the item NFT.
+Login & Wallet: For MVP, wallet connection is crucial to handle tokens. We’ll rely on Solana dev tools but avoid building new programs if possible. We can simply have the game check balances via web3 calls and request transfers when needed. If on-chain logic is needed for fairness (like escrow a stake until mission result), we might deploy a minimal Solana program that holds a bet and resolves outcome. But given time constraints, more likely MVP will trust the server to tell the wallet “pay X or receive Y”. This means a bit of trust from players, but in a small alpha with friends/community that’s acceptable. We will be transparent and maybe limit amounts to not risk too much.
+Token Integration: $CRIME and $FUN tokens will be live (perhaps on Solana devnet or mainnet if ready). We will create these tokens (using the standard SPL token mint) before launch. MVP focus:
+Earning $CRIME: After a mission success, the game will send $CRIME to the player’s wallet. This can be done by the server signing a transaction from a reward wallet or invoking airdrop from the mint authority.
+Spending $CRIME: When starting a mission or buying an item, the player will be prompted to send the required $CRIME to the game’s treasury wallet or burn address. We can do a direct transfer via wallet prompt (less dev work than fancy contract).
+$FUN in MVP might be limited distribution: perhaps we pre-mint a fixed supply of $FUN and allocate some for rewards. MVP might not immediately need $FUN for gameplay, but we can still issue a bit to testers (especially for community engagement on Discord). If we want a use for $FUN at MVP, the shop could have one cosmetic item that costs $FUN to give it purpose.
+We’ll ensure these token transactions are small (few cents) and possibly use Solana’s low fees or even cover fees via airdropped SOL to players if needed, to keep UX smooth.
+Basic Tokenomics Controls: MVP should have the initial values for faucets/sinks tuned conservatively. For example, mission rewards and fees such that we aren’t flooding players with tons of $CRIME at start. We might cap daily earnings. It’s easier to start tight and later loosen rewards than vice versa. We’ll also include an admin panel or config file to tweak these quickly (so if something breaks the economy in alpha, we adjust on the fly). Because MVP is a test, we might even run it with test tokens to simulate before putting real value.
+NFT Support (Minimal): If time permits, have at least one NFT integrated:
+Issue a special “MVP Early Player” badge NFT to everyone who signs up in the first week. We can pre-mint these manually or via a small script. This NFT has no function except bragging rights and could be displayed in the user’s profile.
+If possible, implement one cosmetic change: e.g., if you have the badge NFT, the UI shows your name in gold color or your avatar wears a special hat. This requires reading the wallet for that NFT – doable with existing libraries.
+We likely won’t launch a full NFT marketplace in MVP, just the ability to hold/see NFTs.
+Discord/Telegram Integration (MVP Level):
+Set up a Discord server for the game and a basic bot that can post announcements. MVP bot features: echo game events (even if manual or scripted at first). If full integration is not ready, we can fake it initially by manually posting some updates (“Alpha tester X just found a bug… err, I mean cracked a safe for 10 $CRIME!”).
+More concretely, by MVP end we want the Discord bot to at least do: !balance command, which the user can use after linking their account (maybe by verifying wallet ownership via a signed message). The bot can then read from our database or blockchain and respond with the user’s $CRIME and $FUN. This is a nice-to-have but achievable with moderate effort.
+Telegram maybe just a broadcast channel for MVP due to time. We can set up an announcement channel that forwards from Discord or from a webhook.
+Positive-Sum Experience: We will test that the game feels fun even if you lose. For MVP, perhaps grant players some free $CRIME or $FUN to start so they’re not afraid to play. And if they bust out, we have ways to get back in (maybe a small daily login stipend of 1 $CRIME or a faucet for broke players). This ensures new testers don’t get stuck. It’s essentially a tutorial: free tokens to learn the ropes, with the expectation sinks will reclaim some.
+Technical Simplicity: We lean on off-chain logic for MVP. For example, mission outcomes computed off-chain, and then we do on-chain transfers as needed. Security is light but acceptable for a small-scale start. We’ll run the backend and keep it authoritative for now (with logs and transparency so players trust us). On Solana, writing a whole game program would be complex; instead, we’ll maybe just have a small verification contract if needed (like a program where players can deposit $CRIME, and withdraw if success or let us burn if fail – but if that’s too much, skip and just trust backend). The point is to deliver a working game quickly.
+Front-End & UX: It will be more functional than beautiful at first, but we’ll still give it some thematic flavor (maybe a pixel art or comic style for images/icons that we can source from free assets or simple drawings). We must ensure the UX is clear – e.g., show odds of success for missions, show confirmation of token spends, etc., so players aren’t confused about losing tokens. Use tooltips to explain $CRIME and $FUN. Given crypto UX can be tricky, we’ll keep flows minimal (like one action at a time, clear sign transaction prompts).
+By the end of MVP, we should have a small but fully playable loop: players do a couple of missions, earn/spend tokens, maybe try a theft, and check a leaderboard. This MVP will be tested with a closed group (perhaps the Discord community) to gather feedback on what’s fun, what needs improvement. Crucially, we will verify the tokenomics assumptions on a small scale – e.g., do players tend to hoard or spend? Is one mission too profitable? – and iterate accordingly.
+Expansion and Phased Roadmap
+With the MVP in hand, we envision an iterative roadmap to expand the game in phases. Each phase will add depth, new content, and improved decentralization, all while keeping the game fun and aligned with the $CRIME/$FUN ethos. Here’s a suggested roadmap: Phase 1: MVP Launch (Q0) – Establish the Core
+Launch the MVP publicly on Solana devnet or mainnet beta with basic missions, $CRIME/$FUN tokens live, and Discord community setup.
+Gather player feedback and fix critical issues. Monitor the economy (adjust mission rewards or costs quickly if something’s unbalanced).
+Small marketing push on crypto Twitter highlighting the tagline “fuck it, do $CRIME, have $FUN” with maybe a meme contest to engage the culture from day one.
+Phase 2: Quality of Life & Core Improvement (Q1) – Polish and Stability
+UI/UX Improvements: Make the web interface more polished (better graphics, smoother wallet interactions, mobile-friendly design so people can play on their phones easily – crucial for casual play). Possibly create a simple mobile app wrapper if needed.
+Security & Trust: Introduce more on-chain verification where possible. For example, implement an on-chain escrow contract for mission stakes to remove any remaining trust issues (“provably fair crime” feature). If feasible, integrate Chainlink VRF or another randomness oracle for mission outcomes, adding transparency. These can often be done using existing templates, so it won’t be as hard as building from scratch.
+Economy Tweaks: By now we’ll have data to refine token faucets/sinks. We might adjust token generation rates or introduce new sinks if inflation is trending high (for instance, introduce a “Black Market” shop with expensive goodies as a token sink). Ensure that by end of Q1, the economy is stable with a growing active user base and tokens holding value (not dumping).
+Basic Marketplace: Enable players to trade items/NFTs peer-to-peer. Likely integrate an existing marketplace widget or direct wallet-to-wallet sales for items. This lets the community economy develop (people can buy that lockpick NFT from each other, etc.). We can take a tiny transaction fee in $CRIME as an additional sink.
+Expanded Content: Add a few more missions to keep things fresh (especially if players have done the initial ones a lot). Perhaps a new mission every two weeks to keep engagement. Also possibly enable multi-player heists fully if not done in MVP. At least one cooperative mission where 2-3 players can queue up together would add a lot of excitement in this phase.
+Community Growth: Run events on Discord/TG: e.g., a tournament where top thieves in a week get a unique NFT. Use $FUN allocations to reward community moderation and contributions, growing a positive culture.
+Phase 3: Social & Cooperative Expansion (Q2) – Community Caper
+Gangs/Guilds Feature: Implement the gang system formally. Allow players to create or join gangs (maybe with a fee paid in $FUN or $CRIME to create a gang, to avoid spam). Gangs have in-game benefits: a shared chat (via Discord integration), perhaps small boosts when members play together, and gang leaderboards (who controls territories or has highest total $CRIME). Introduce Gang Wars – periodic events where gangs compete (could be PvP tournaments or accumulating the most heist loot in a week) for prizes. This drives group engagement and retention; players now have a team identity.
+New PvP Mode – Bounties: Launch a bounty system where players can place a bounty (in $CRIME) on others. If someone annoys you by stealing, you can put a 50 $CRIME bounty on them. Then other players can claim that bounty by successfully robbing or defeating that target. This creates a fun dynamic and another sink (the bounty amount is paid by the issuer and transferred to the bounty hunter on success, with maybe a cut burned). It’s also a way for non-PvP players to indirectly participate (they can pay others to do PvP for them).
+More Missions & References: Expand the mission roster with timely references. For example, if in Q2 the crypto world is talking about some new meme or scandal, put that in a mission story. New content could include an “International Job” (maybe a mission that requires owning a certain NFT passport, hinting at cross-game collaboration if possible) or seasonal events (a Halloween spooky crime event, etc.).
+NFT Drops: Do a limited NFT drop of new cosmetic or utility items to raise funds and excitement. For example, release 500 “Genesis Mask” NFTs for sale in $FUN or SOL, which give a special in-game effect and prove early supporter status. This not only provides a funding influx but also spreads word as people trade these on secondary markets. Ensure any proceeds partly go back into the game economy (like buyback some $CRIME or fund reward pools) to maintain positive-sum feel.
+Improved Integration: Possibly integrate with other projects or platforms. For instance, have a crossover event with another Solana game or NFT collection where owning a partner NFT gives a mission in our game. This could attract their community and vice versa. Technically just reading wallet for that NFT to unlock content.
+Phase 4: Maturation & Governance (Q3-Q4) – Long-Term Growth
+Governance & $FUN Utility: By this phase, if the community is stable, we can decentralize some decision-making. Use $FUN as governance token – set up a Snapshot or on-chain voting where $FUN holders vote on proposals (new features, adjusting tokenomics, etc.). Also give $FUN holders possible dividends or special privileges (maybe a share of marketplace fees goes to those who stake $FUN, for example). This encourages long-term holding of $FUN (reducing sell pressure because it has governance power and yield). We’d formalize $FUN’s supply (if not already) and distribution (perhaps via a litepaper update).
+Scaling Up: Work on scalability – if we have more users, optimize the backend, consider migrating some logic fully on-chain if trust becomes a big issue and if Solana dev becomes easier with more resources or new frameworks. Possibly consider multi-chain expansion (e.g., bridging $CRIME/$FUN to other chains or having missions on other chain ecosystems) if that aligns with growth. But only if resources allow; otherwise focus on Solana and web.
+Advanced Gameplay: Add depth for veteran players: things like a skill tree for your character (spend $FUN to specialize as a Hacker vs Muscle), more complex heists that use real-time coordination, or an endless mode. Maybe even a “city building” element where gangs can collectively build an empire (invest $CRIME to upgrade a safehouse that passively yields something or unlocks bigger missions). These features can consume the large token reserves that long-term players might accumulate, giving them goals beyond just token value – essentially high-level sinks that keep whales engaged.
+Economy Monitoring: If the game is successful by Q3/Q4, we’ll have a full-time focus on the economy health. We may hire or involve economists/community to watch for signs of inflation or hoarding and adjust. We could introduce algorithmic sinks: e.g., increase certain fees if $CRIME supply grows too fast (dynamic difficulty). The key is to keep the game playable for new players too – consider adding a new-player pool or separate economy for newbies if the gap between veterans and newcomers grows (to prevent discouragement).
+Phase 5+: Ongoing Events and Possibly DAO (Beyond) – Sustaining Engagement
+Regular events (weekly, monthly) with unique narratives (perhaps even community-written storylines). Think of it as running the game like a living world, always something happening (a new “crime season” or a parody of a real crypto event).
+Eventually, consider forming a DAO of the community to oversee the project’s treasury (especially if revenue from NFT sales or fees is significant). This aligns with web3 ethos: the players collectively having a say in the direction, ensuring the game stays fair and fun.
+Expand the development team if revenue allows, to build more features or even other games under the $CRIME/$FUN universe (e.g., a mobile spin-off mini-game that connects to the same tokens).
+Throughout all phases, we’ll keep the spirit: “fuck it, do $CRIME (have $FUN)” – meaning we won’t shy away from bold, experimental fun features, and we’ll prioritize player enjoyment and community over pure profit. The roadmap is flexible; we’ll adapt to what players love most. If, say, we find everyone is obsessed with one type of mission, we’ll make more of that. If a token sink isn’t working and people are dumping, we’ll revisit and fix it promptly. Crucially, this plan is mindful of the tight budget: each phase’s features are chosen to be incremental and achievable with small resources, often reusing existing tech (like using Discord rather than coding a new social system, using open-source Solana programs for token ops, etc.). We focus on fast iterations and community feedback to guide development efficiently. In conclusion, the design presented provides a framework for a vibrant, sustainable web3 game that’s casual yet deep. It marries the thrill of crime-themed gameplay with the positivity of a fun community and robust tokenomics. By starting small but thoughtful, and growing with our players, we aim to create a game that not only survives the challenges that previous P2E games faced but also becomes something players genuinely love to play (even if crypto wasn’t involved!). After all, if everyone’s having $FUN, why not do a little $CRIME? 😉
+coingecko.com
+medium.com
+
+
+
+
+Sources
+
+
+
+
+
+You said:
+Ooer; I forgot to mention. $CRIME and $FUN are both already deployed, and I beleive ownership is renounced. This means the supply of each is capped at I think 1 billion, and we won't be able to mint new tokens on demand, we'll need to either purchase them or use the ones I've already got (~8% and ~22% so far) However, the platform I launched on (auto.fun) does give me the LP NFT by default, so a portion of transaction volume will accrue to my wallet that I could use to fund operations. Hopefully, as the game starts taking shape, people might be interested to invest and donate some of their funds to a treasury wallet of some sort to keep the game going, but that's our primary concern on the tokenomics angle.
+
+Any revisions to the plan or suggestions you'd have in light of this information?
+
+
+ChatGPT said:
+
+Thought for 1m 20s
+Because ownership of both $CRIME and $FUN is renounced and the max-supply (1 B each) is already minted, we must treat the game economy as a closed-loop pool that can only redistribute tokens, never issue new ones.
+All rewards therefore come from (a) an up-front “Game Treasury” you seed with part of your holdings, (b) ongoing LP-fee revenue the Auto.fun LP-NFT accrues to you, and (c) voluntary player deposits/donations. Sinks must recycle value back into that Treasury instead of burning large amounts, or the system will stall.
+Below is a tightened token-economy plus a few mechanical tweaks that let the original design survive—and even thrive—under a fixed-supply regime.
+
+1 · What changes & why
+Aspect	Old draft	Must change because supply is capped
+Mission rewards	Freshly-minted $CRIME	Paid from Treasury or from other players’ entry fees
+Daily faucets	Small new-token emissions	Replace with “off-chain XP → periodic token stipend” so the Treasury can budget payouts
+Token burns	0–30 % of fees burned	Dramatically reduce burns; route most fees back to Treasury. Small “thematic” burns still okay for scarcity
+New sink ideas	Cosmetic NFTs, gear, etc.	Keep all; proceeds go straight to Treasury rather than burned
+Economy balance lever	Adjust mint-rate	Now adjust payout schedule (Treasury spend-rate) + sink intensities
+
+Why we can’t mint
+A capped-supply token behaves like Bitcoin’s hard cap: scarcity can boost perceived value, but emissions are impossible. Game-reward loops must therefore recycle value; otherwise the Treasury empties and play halts.
+
+Where fresh inflow comes from
+LP-NFT fees: Uniswap-style LP NFTs accrue swap fees to the holder; those fees are withdraw-able at will.
+
+Voluntary deposits: Players may stake $CRIME/$FUN into “Prize Pools” for higher-tier events; unclaimed/expired pools revert to Treasury.
+
+Micro-donations: A 1 % cut of every in-game peer-to-peer trade auto-routes to Treasury.
+
+2 · Revised Treasury-centric tokenomics
+2.1 Treasury architecture
+mermaid
+Copy
+Edit
+flowchart LR
+ sub((Initial Seed<br>from your 8 % / 22 %))
+ fees((Auto.fun LP<br>fee trickle))
+ players((Player Deposits))
+ sub --> T(Treasury Wallet<br>(multisig / DAO-controlled))
+ fees --> T
+ players --> T
+ T -->|Scheduled drips| R[Reward Buffer]
+ sinks((Entry fees, NFT sales,<br>bribes, Vault interest))
+ sinks --> T
+Seed suggestion: 20 M $CRIME + 40 M $FUN (2 % & 4 % of supply) covers ~18 months at modest payout rates while you grow outside inflow.
+Governance: Hold Treasury in a 3/5 multisig, migrate to a DAO once community size justifies it.
+
+2.2 Dynamic reward budget
+Weekly emission cap (e.g. 200 k $CRIME, 20 k $FUN).
+
+Server reads Treasury balance each week and scales mission payouts ±10 % to keep ≥18 weeks of runway.
+This mirrors “emissions vs sinks” balancing that research flags as the core driver of price stability.
+
+2.3 Faucets & sinks (now purely redistributive)
+Faucet (adds to players)	Matching sink (returns to Treasury)
+Mission success payout	Mission entry fee (≥60 % of expected reward)
+PvP theft winnings	Theft bribe + failure penalties
+Seasonal leaderboard prizes ($FUN)	5 % treasury tax on all marketplace trades
+Community bounties / memes	Cosmetic NFT purchases in $FUN
+Staked-LP fee share (optional future)	Time-locked vaults: early exit penalty recycles to Treasury
+
+Note on burns – research shows token burns rarely help short-term price and simply starve the economy if supply is fixed. Keep burns symbolic (e.g. 1 % of a big heist).
+
+3 · Mechanical tweaks to the gameplay loop
+3.1 “Energy → Tickets” model
+Instead of free daily $CRIME, missions now require Action Tickets (off-chain).
+
+Earn tickets via daily login, social quests, or by spending $FUN.
+
+When you start a mission you stake a little $CRIME plus a ticket; success pays $CRIME from Reward Buffer.
+This throttles payouts without feeling stingy, and lets you tune ticket drop-rate rather than token supply.
+
+3.2 Progression via non-fungible value
+Because raw-token emissions are scarce, deepen non-token rewards:
+
+Skill tree upgrades stored off-chain; unlock nodes with $FUN or tickets.
+
+Tradable cosmetic NFTs—paid in $FUN—drive demand without stressing $CRIME pool.
+
+Reputation tiers grant %-boosts rather than flat payouts; high-rep players earn more share of the same fixed pot, not extra tokens minted.
+
+4 · Funding runway math (example)
+Source	Est. monthly inflow
+LP-NFT fees (assume 0.3 % pool, $40 k vol)	≈ 120 $CRIME
+10 % of all in-game entry fees (if 5 k plays/mo, avg 5 $CRIME fee)	2 500 $CRIME
+NFT cosmetic sales (20 pcs @ 50 $FUN)	1 000 $FUN
+Marketplace fee (1 % on 100 k volume)	1 000 $CRIME
+
+At a 200 k $CRIME / 20 k $FUN monthly reward cap the Treasury burn-rate is ≈ 3 %/mo. You can adjust caps weekly to stay solvent.
+
+5 · Governance & community optics
+Dual-token clarity – keep $CRIME transactional, $FUN prestige/governance. Dual separation reduces constant sell-pressure on one asset.
+
+Visible runway meter on the site shows “weeks of reward liquidity left” to nudge donations.
+
+DAO vote—$FUN stakers decide quarterly: lower/raise weekly payouts or introduce new cosmetics.
+
+Transparency dashboards let players audit Treasury flows (emissions vs sinks chart).
+
+6 · Implementation checklist (MVP adjustments)
+Create Treasury multisig + reward-buffer hot wallet.
+
+Seed initial Treasury (transfer chosen % of your holdings).
+
+Add payout-scaler logic to backend; read Treasury each epoch.
+
+Refactor mission code to:
+
+collect entry fee → send to Treasury
+
+pull reward from reward-buffer (if pool has enough)
+
+Swap “daily faucet” for Ticket drop-system.
+
+Update UI copy to call out fixed-supply / community-funded model so newcomers grasp the scarcity narrative.
+
+Publish public Dune/Flipside dashboard showing Treasury balance and weekly inflow/outflow.
+
+7 · Risk & mitigation
+Risk	Mitigation
+Treasury depletion	Dynamic payout throttling; expand sinks (limited-edition NFTs) sooner rather than later
+Whale drain attack	Cap single-mission reward %, bleed large wins over time; theft caps per wallet
+Perception of “dev wallet controls rewards”	Multisig with community signers; quarterly snapshot of Treasury addresses
+LP-fee volatility	Diversify inflow: small % of marketplace trades and ticket sales bolster revenue if swap volume dips
+
+In short
+By flipping every faucet into a redistribution from a transparent, community-funded Treasury, the game satisfies hard-cap reality while preserving the playful risk-and-reward loop.
+Players still “do $CRIME,” but every JOB, HEIST, or THEFT merely moves tokens—or funnels fees—back into the same pot that keeps the fun going. The result is a sustainable, closed-economy playground whose scarcity narrative can attract outside value instead of relying on perpetual emissions.
+
+Key references
+Fixed-supply scarcity model · Need for balanced emissions vs sinks · Burns give little short-term price lift · Dual-token utility split benefits · LP-NFTs accrue swap fees · Uniswap distributes fees to LP holders · Swap-fee yield beats inflationary yield farming · Risk that rewards must match inflow in fixed-supply games (Decentraland example)
+
+
+
+
+
+
+
+You said:
+Awesome, that all sounds great to me. I did want to throw a little spice in; an idea I had (and the v0 mvp i generated) was that players would, when 'out on jobs' or in some other 'attackable' zone, have a reason to carry $CRIME only or a mix of $CRIME and $FUN. When one player attacks another, if both players have $FUN, then doing $CRIME is okay and the attack succeeds (maybe the victim loses $CRIME but both gain some $FUN as a consolation), but if somebody doesn't have $FUN (i think we'd need to give attackers a reason to carry/not carry $FUN in this scenario, haven't quite thought that through), then the attacker has some sort of negative thing occuring (they did $CRIME to somebody who didn't have any $FUN), possibly something like making their 'crime bag' available to be freely stolen by other saavy players for a short duration, or something. Any thoughts on how you might integrate a system that's similar in principle to this idea in the design doc we've created?
+
+
+ChatGPT said:
+
+Thought for 29 seconds
+The new twist is a “ FUN-shield & Rogue status ” layer that borrows the best bits of EVE Online’s security ratings, Albion’s reputation, The Division’s Rogue timer, and Wolf Game’s risk-on-carry design. In short, every PvP hit is still “doing $CRIME,” but it only stays socially-acceptable if both wallets involved are carrying at least a dust-amount of $FUN. Hit a player who’s “out of FUN” and you instantly go Rogue: your loot bag becomes lootable for a short window, you eat a reputation penalty, and a bounty pops on your head—so other players are paid to hunt you down. This single rule lets $FUN act as a social lubricant and a frictionless toggle between consensual PvP and high-risk outlaw play while keeping the fixed-supply economy intact.
+
+1 · Design inspiration & precedents
+Game mechanic	What we copy	Citation
+EVE Online security status—criminals lose sec-rating and get shot by sentry guns	Immediate global punishment & “kill-right” for unlawful attacks	
+EVE University Wiki
+Albion Online reputation—penalty scales with victim’s rep	Bigger hit if you prey on “nice” players (those who stock $FUN)	
+Albion Online Wiki
+The Division Dark-Zone Rogue timer—rogues become public targets with bounty	30-60 s “open-season” window to loot a Rogue’s crime bag	
+The Division Wiki
+Ultima Online murder counts—decay only while playing	Time-based parole: keep playing to clear Rogue status	
+Ultima Online
+Escape from Tarkov secure container—carry risk-free stash slot	Optional “vault” NFT lets whales park untouchable tokens	
+Escape from Tarkov Wiki
+Positive-sum crypto-design articles	Ensures we’re adding externalities, not zero-sum grinds	
+Gate.io
+ChainCatcher
+Wolf Game steal-or-stake loop	Encourages balancing carry vs. staking for safety	
+nft now
+Wolf Game
+On-chain proof-of-play frameworks (Pirate Nation)	Provides template if we later want fully-on-chain PvP flags	
+Conduit: The complete rollup platform
+Axie Infinity cautionary tale	Reminder to avoid unchecked emissions & grief-heavy loops	
+Time
+
+2 · Rules of the FUN-shield / Rogue layer
+2.1 Carry thresholds
+FUN-carrying status
+
+Wallet holds ≥ 1 $FUN (configurable) → flagged “FUN-positive”.
+
+< 1 $FUN → “FUN-negative”.
+
+2.2 Attack flow
+Attacker initiates theft → must stake EntryFee_CRIME and lock Stake_FUN (e.g., 0.5 $FUN) in escrow until resolution.
+
+Check victim FUN status
+
+Both FUN-positive → “Legit crime”
+
+Theft rolls normally.
+
+Victim loses CRIME (max 10 %).
+
+Both parties receive a shared FUN kickback (e.g., 0.1 $FUN each) as “we’re all having fun.”
+
+Victim FUN-negative → “Illicit crime” (attacker goes Rogue)
+
+Theft still happens but…
+
+Attacker’s loot + an extra 20 % of their wallet drops into a Crime Bag contract that anyone can snatch for the next 60 s.
+
+Attacker takes a -Rep hit that lengthens future Rogue timers (Albion-style scaling). 
+Albion Online Wiki
+
+A bounty equal to 50 % of the stolen CRIME is auto-posted from Treasury to whoever kills/robs the Rogue. Mirrors Division Rogue rewards. 
+The Division Wiki
+
+If the attacker was FUN-negative to begin with, penalties double—deterring grief alts.
+
+Rogue decay
+
+Rogue flag lasts 10 min OR until another player loots/kills the Rogue.
+
+Each 10 min of active play removes one “murder count” just like Ultima Online. 
+Ultima Online
+
+2.3 Incentives created
+Behavior	Why players do it
+Carry a little $FUN even on jobs	Avoid being “defenseless prey” & earn kickback if attacked
+Carry just enough $FUN, not too much	Holding lots of $FUN = bigger potential steal (thieves get 5 % of victim’s FUN on legit hit)
+Sometimes go Rogue intentionally	High-skill degens may bait for big bounties, creating emergent PvP moments
+
+This mirrors risk-on-carry loops of Wolf Game (Sheep vs. Wolves) and Tarkov’s secure vs. unsecure slots. 
+nft now
+Escape from Tarkov Wiki
+
+3 · Economy impact under fixed supply
+Loop element	Token flow	Treasury effect
+Stake_FUN lock	Locked until theft resolves; if Rogue, part slashed to Treasury	Adds sink without burning scarce supply
+Kickback FUN	Paid from Treasury only if both players FUN-positive	Small predictable drain tied to SAFE thefts
+Bounty	Paid from attacker’s slashed CRIME first, Treasury tops up only if bag is empty	No net emission; often Treasury-neutral
+Crime-bag loot	Redistributes CRIME already in play	Zero emission
+Reputation reset service (future)	Player can pay 5 $FUN to wipe Rogue history faster	Direct FUN sink to Treasury
+
+Because every faucet has a matched capture or lock, Treasury solvency math from the previous answer still holds—only the mix of payouts changes.
+
+4 · MVP-level implementation steps
+Add FUN-status flag in player table; refresh on every wallet balance poll.
+
+Modify theft endpoint
+
+Require Stake_FUN + EntryFee_CRIME.
+
+On success/fail, branch logic above; move funds via on-chain transfers.
+
+Emit RogueCreated event if needed for Discord bot.
+
+Crime Bag contract (simple escrow)
+
+Holds dropped CRIME; anyone can claim() if Rogue flag active; else refunds to owner after timer.
+
+Reputation & bounty structs stored off-chain for MVP; push on-chain later via Merkle proofs if desired (Proof-of-Play template). 
+Conduit: The complete rollup platform
+
+UI additions
+
+Red outline + countdown on Rogue players.
+
+Tooltip on FUN balance: “Carry at least 1 $FUN to consent to fair crimes.”
+
+Discord/TG bot hooks
+
+Post !rogue @playerxyz with remaining timer and current bounty.
+
+/toprogues shows weekly leaderboard; winners get cosmetic NFT in future season.
+
+All of this is code-light: one new escrow contract, a couple server flags, and reused payout maths.
+
+5 · Balancing levers & abuse checks
+Potential exploit	Counter-measure
+Alt spam attacks FUN-rich whale	Whales keep most tokens in “vault NFT” (secure container). 
+Escape from Tarkov Wiki
+Players collude to farm kickback FUN	Kickback only once per unique pair per 24 h; large stake_FUN lock discourages Sybil loops.
+Perpetual Rogue griefing	Rogue timer lengthens exponentially with each offense; high -Rep reduces mission rewards until cleared.
+Treasury drain via constant safe attacks	FUN kickback tiny (e.g., 0.05 $FUN) and funded by stake_FUN fees first; Treasury tops up only when necessary.
+
+TL;DR
+Carrying a token of “fun” is your license to commit or receive fair $CRIME.
+If you mug someone who’s out of $FUN you become an open target with your loot hanging out for everyone else—so the safest crooks keep a little $FUN on them, and thrill-seekers tempt fate by going Rogue. The mechanic re-uses proven reputation/bounty systems (EVE, Albion, Division) and slots neatly into the fixed-supply, Treasury-funded economy without extra emissions, giving both $CRIME and $FUN evergreen utility and a spicy meta-game of risk management.
+
+
+
+
+
+
+
+Sources
+
+
+
+
+
+
+
+
+
+
+Search
+
+
+
+ChatGPT can make mistakes. Check important info.
