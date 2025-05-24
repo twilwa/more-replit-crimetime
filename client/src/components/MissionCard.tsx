@@ -42,7 +42,7 @@ export default function MissionCard({ mission, onSelect }: MissionCardProps) {
     >
       <div className="relative">
         <img 
-          src={mission.image} 
+          src={mission.image_url || mission.image || "https://placehold.co/400x250/373151/FFFFFF/png?text=CRIME+TIME"} 
           alt={mission.name} 
           className="w-full h-32 object-cover"
         />
@@ -61,18 +61,18 @@ export default function MissionCard({ mission, onSelect }: MissionCardProps) {
           </div>
           <div>
             <span className="text-gray-400">Reward:</span> 
-            <span className="text-success">{mission.reward} $CRIME</span>
+            <span className="text-success">{mission.min_reward}-{mission.max_reward} $CRIME</span>
           </div>
         </div>
         
         <div className="flex justify-between text-xs mb-4">
           <div>
             <span className="text-gray-400">Success Rate:</span> 
-            <span className={getDifficultyColor(mission.difficulty)}>{mission.successRate}</span>
+            <span className={getDifficultyColor(mission.difficulty)}>{Math.round(mission.success_rate * 100)}%</span>
           </div>
           <div>
             <span className="text-gray-400">Time:</span> 
-            <span className="text-gray-300">{mission.timeRequired}</span>
+            <span className="text-gray-300">{mission.time_required}</span>
           </div>
         </div>
         
