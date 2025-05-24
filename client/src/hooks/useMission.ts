@@ -103,9 +103,14 @@ export const useMission = () => {
         luck: Math.floor(Math.random() * 30) + 20
       });
       
-      // Calculate potential reward from min/max values
-      const baseReward = mission.min_reward + 
-        Math.floor(Math.random() * (mission.max_reward - mission.min_reward));
+      // Calculate potential reward from min/max values or fall back to legacy format
+      let baseReward = 100;
+      if (mission.min_reward && mission.max_reward) {
+        baseReward = mission.min_reward + 
+          Math.floor(Math.random() * (mission.max_reward - mission.min_reward));
+      } else if (mission.reward) {
+        baseReward = parseInt(mission.reward.replace(/[^0-9]/g, '')) || 100;
+      }
       setPotentialReward(baseReward);
       
       toast({
@@ -274,8 +279,58 @@ export const useMission = () => {
 
   // Abort the current mission
   const abortMission = () => {
-    if (currentMission) {
-      // Set penalty for aborting (lose the mission cost)
+    if (!currentMission) return;
+    
+    // Call the server API to abort the mission
+    fetch('/api/missions/complete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        playerId: 1, // Default player for now
+        missionId: currentMission.id,
+        playerStats,
+        attempt: false // Indicate we're aborting, not attempting completion
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to abort mission');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        toast({
+          title: "Failed to Abort Mission",
+          description: data.message || "An error occurred aborting the mission",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      // Set penalty for aborting
+      setMissionPenalties({
+        crimeCoinLost: currentMission.cost - (data.crimeCoinRefunded || 0),
+        funCoinGained: data.funCoinGained || 1,
+        lessonLearned: data.message || "You aborted the mission and lost most of your investment. Sometimes it's better to walk away than get caught!"
+      });
+      
+      // Apply the penalties through the game state
+      failMission(
+        currentMission.id, 
+        currentMission.cost - (data.crimeCoinRefunded || 0), 
+        data.funCoinGained || 1
+      );
+      
+      // Close the mission modal and show the failure modal
+      setIsMissionModalOpen(false);
+      setFailureReason("You decided to abort the mission and cut your losses.");
+      setIsFailureModalOpen(true);
+    })
+    .catch(error => {
+      console.error("Error aborting mission:", error);
+      
+      // Fallback to client-side logic if API fails
       setMissionPenalties({
         crimeCoinLost: currentMission.cost,
         funCoinGained: 1, // Get a little fun coin for the disappointment
@@ -289,7 +344,13 @@ export const useMission = () => {
       setIsMissionModalOpen(false);
       setFailureReason("You decided to abort the mission and cut your losses.");
       setIsFailureModalOpen(true);
-    }
+      
+      toast({
+        title: "Connection Issue",
+        description: "Playing in offline mode. Some features may be limited.",
+        variant: "destructive"
+      });
+    });
   };
 
   // Continue with the mission (progress to outcome)
@@ -364,154 +425,209 @@ export const useMission = () => {
       return;
     }
     
-    // Mission is complete, calculate success chance based on player stats and difficulty
-    const successChance = calculateSuccessChance(playerStats, currentMission.difficulty);
+    // Mission is at 100% progress, time to attempt completion
     
-    // Add some drama with a random factor based on stats
-    const luckFactor = playerStats.luck / 200; // Max 0.5 boost from luck
-    const finalSuccessChance = Math.min(0.95, successChance + luckFactor); // Cap at 95%
-    
-    // Log the odds for dramatic effect
-    console.log(`Mission success chance: ${(finalSuccessChance * 100).toFixed(1)}%`);
-    
-    // Determine outcome
-    const roll = Math.random();
-    const isSuccessful = roll < finalSuccessChance;
-    
-    if (isSuccessful) {
-      // Mission succeeded
-      // Calculate reward with bonus based on how well the player did
-      const performanceBonus = Math.max(0, (finalSuccessChance - 0.5) * 2); // 0-1 scale based on how much over 50% they were
-      const rewardMultiplier = 1 + (performanceBonus * 0.5); // 1x to 1.5x multiplier
+    // Make API call to complete the mission
+    fetch('/api/missions/complete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        playerId: 1, // Default player for now
+        missionId: currentMission.id,
+        playerStats,
+        attempt: true // We're attempting to complete the mission
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to complete mission');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        toast({
+          title: "Mission Error",
+          description: data.message || "An error occurred completing the mission",
+          variant: "destructive"
+        });
+        return;
+      }
       
-      const baseRewards = generateRandomReward(currentMission, potentialReward);
-      const boostedRewards = {
-        ...baseRewards,
-        crimeCoin: Math.floor(baseRewards.crimeCoin * rewardMultiplier),
-        reputationGain: baseRewards.reputationGain + (performanceBonus > 0.5 ? 1 : 0)
-      };
-      
-      setMissionRewards(boostedRewards);
-      
-      // Record mission success in database
-      fetch('/api/mission-history', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          playerId: 1, // Default player ID
-          missionId: currentMission.id,
-          success: true,
-          crimeCoinChange: boostedRewards.crimeCoin,
-          funCoinChange: boostedRewards.funCoin,
-          experienceGained: boostedRewards.reputationGain * 10 // Convert rep to experience
-        })
-      }).catch(error => {
-        console.error("Failed to record mission history:", error);
-        // Continue with gameplay even if database update fails
-      });
-      
-      // Apply rewards to player
-      completeMission(
-        currentMission.id, 
-        boostedRewards.crimeCoin, 
-        boostedRewards.funCoin,
-        boostedRewards.reputationGain * 10 // Convert rep to experience
-      );
-      
-      // Close mission modal and show success modal
+      // Close mission modal 
       setIsMissionModalOpen(false);
-      setIsSuccessModalOpen(true);
-    } else {
-      // Mission failed - calculate severity of failure based on how close they were
-      const failSeverity = Math.min(1, (1 - finalSuccessChance) * 2); // 0-1 scale of how bad the failure is
       
-      // Base loss is the mission cost
-      const baseLoss = currentMission.cost;
-      // Extra loss scales with difficulty and failure severity
-      const difficultyMultiplier = currentMission.difficulty.toLowerCase() === "easy" ? 0.5 : 
-                                 currentMission.difficulty.toLowerCase() === "medium" ? 1 : 1.5;
+      if (data.missionSuccess) {
+        // Mission succeeded
+        // Set rewards from server response
+        setMissionRewards({
+          crimeCoin: data.crimeCoinReward || 0,
+          funCoin: data.funCoinReward || 0,
+          reputationGain: data.experienceGained ? Math.floor(data.experienceGained / 10) : 1,
+          bonusItems: [] // Future expansion for item rewards
+        });
+        
+        // Apply rewards to player state
+        completeMission(
+          currentMission.id, 
+          data.crimeCoinReward || 0, 
+          data.funCoinReward || 0,
+          data.experienceGained || 10
+        );
+        
+        // Show success modal
+        setIsSuccessModalOpen(true);
+      } else {
+        // Mission failed
+        // Set penalties from server response
+        setMissionPenalties({
+          crimeCoinLost: data.crimeCoinLost || 0,
+          funCoinGained: data.funCoinGained || 0,
+          lessonLearned: data.message || "Better luck next time!"
+        });
+        
+        // Apply penalties to player state
+        failMission(
+          currentMission.id, 
+          data.crimeCoinLost || 0, 
+          data.funCoinGained || 0
+        );
+        
+        // Set failure reason and show failure modal
+        setFailureReason(data.failureReason || "Your mission failed unexpectedly.");
+        setIsFailureModalOpen(true);
+      }
+    })
+    .catch(error => {
+      console.error("Error completing mission:", error);
       
-      const extraLoss = Math.floor(baseLoss * failSeverity * difficultyMultiplier);
-      const crimeCoinLost = baseLoss + extraLoss;
+      // Fallback to client-side logic if API fails
+      // Calculate success chance based on player stats and difficulty
+      const successChance = calculateSuccessChance(playerStats, currentMission.difficulty);
       
-      // More fun coins for spectacular failures
-      const funCoinGained = Math.floor(failSeverity * 5) + 1; // 1-6 fun coins depending on how badly they failed
+      // Add some drama with a random factor based on stats
+      const luckFactor = playerStats.luck / 200; // Max 0.5 boost from luck
+      const finalSuccessChance = Math.min(0.95, successChance + luckFactor); // Cap at 95%
       
-      // Generate failure narrative based on stats
-      const weakestStat = Object.entries(playerStats).reduce(
-        (lowest, [stat, value]) => value < lowest.value ? {stat, value} : lowest, 
-        {stat: "", value: 100}
-      ).stat;
+      // Log the odds for dramatic effect
+      console.log(`Mission success chance: ${(finalSuccessChance * 100).toFixed(1)}%`);
       
-      // Generate narrative based on weakest stat
-      const failureReasons = {
-        stealth: [
-          "You weren't stealthy enough! Security cameras caught you red-handed.",
-          "Your noisy approach alerted the guards. Stealth fail!",
-          "You stepped on a creaky floorboard at the worst possible moment!"
-        ],
-        intimidation: [
-          "Your attempt to intimidate the security guard backfired completely.",
-          "No one took your threats seriously, and they called your bluff.",
-          "Your disguise was unconvincing and the staff immediately called security."
-        ],
-        speed: [
-          "You were too slow! The police arrived before you could escape.",
-          "Your getaway vehicle stalled and you couldn't outrun the cops.",
-          "You tripped during your escape and got caught in an embarrassing faceplant."
-        ],
-        luck: [
-          "Just bad luck! A random police patrol happened to drive by.",
-          "What are the odds? The owner returned early from vacation.",
-          "Murphy's Law in full effect - everything that could go wrong, did go wrong."
-        ]
-      };
+      // Determine outcome
+      const roll = Math.random();
+      const isSuccessful = roll < finalSuccessChance;
       
-      const lessonLearned = [
-        "Next time, spend more time scouting the location first.",
-        "You should invest in better equipment for jobs like these.",
-        "Consider improving your " + weakestStat + " skills for future missions.",
-        "Maybe bring a partner along next time for backup.",
-        "Try a less risky job until you build up more experience.",
-        "This wasn't your day. Sometimes it's better to walk away than force it."
-      ];
+      if (isSuccessful) {
+        // Mission succeeded
+        // Calculate reward with bonus based on how well the player did
+        const performanceBonus = Math.max(0, (finalSuccessChance - 0.5) * 2);
+        const rewardMultiplier = 1 + (performanceBonus * 0.5);
+        
+        // Calculate base reward
+        let baseReward = 100;
+        if (currentMission.min_reward && currentMission.max_reward) {
+          baseReward = currentMission.min_reward + 
+            Math.floor(Math.random() * (currentMission.max_reward - currentMission.min_reward));
+        } else if (currentMission.reward) {
+          baseReward = parseInt(currentMission.reward.replace(/[^0-9]/g, '')) || 100;
+        }
+        
+        const crimeCoinReward = Math.floor(baseReward * rewardMultiplier);
+        const funCoinReward = Math.floor(Math.random() * 20) + 10;
+        const experienceGained = Math.floor(baseReward / 10) + Math.floor(Math.random() * 10);
+        
+        const rewards = {
+          crimeCoin: crimeCoinReward,
+          funCoin: funCoinReward,
+          reputationGain: Math.floor(experienceGained / 10)
+        };
+        
+        setMissionRewards(rewards);
+        
+        // Apply rewards to player
+        completeMission(
+          currentMission.id, 
+          crimeCoinReward, 
+          funCoinReward,
+          experienceGained
+        );
+        
+        // Close mission modal and show success modal
+        setIsMissionModalOpen(false);
+        setIsSuccessModalOpen(true);
+      } else {
+        // Mission failed
+        const failSeverity = Math.min(1, (1 - finalSuccessChance) * 2);
+        const baseLoss = currentMission.cost;
+        const difficultyMultiplier = currentMission.difficulty.toLowerCase() === "easy" ? 0.5 : 
+                               currentMission.difficulty.toLowerCase() === "medium" ? 1 : 1.5;
+        
+        const extraLoss = Math.floor(baseLoss * failSeverity * difficultyMultiplier);
+        const crimeCoinLost = baseLoss + extraLoss;
+        const funCoinGained = Math.floor(failSeverity * 5) + 1;
+        
+        // Generate failure narrative based on stats
+        const weakestStat = Object.entries(playerStats).reduce(
+          (lowest, [stat, value]) => value < lowest.value ? {stat, value} : lowest, 
+          {stat: "", value: 100}
+        ).stat;
+        
+        const failureReasons = {
+          stealth: [
+            "You weren't stealthy enough! Security cameras caught you red-handed.",
+            "Your noisy approach alerted the guards. Stealth fail!",
+            "You stepped on a creaky floorboard at the worst possible moment!"
+          ],
+          intimidation: [
+            "Your attempt to intimidate the security guard backfired completely.",
+            "No one took your threats seriously, and they called your bluff.",
+            "Your disguise was unconvincing and the staff immediately called security."
+          ],
+          speed: [
+            "You were too slow! The police arrived before you could escape.",
+            "Your getaway vehicle stalled and you couldn't outrun the cops.",
+            "You tripped during your escape and got caught in an embarrassing faceplant."
+          ],
+          luck: [
+            "Just bad luck! A random police patrol happened to drive by.",
+            "What are the odds? The owner returned early from vacation.",
+            "Murphy's Law in full effect - everything that could go wrong, did go wrong."
+          ]
+        };
+        
+        const lessonLearned = [
+          "Next time, spend more time scouting the location first.",
+          "You should invest in better equipment for jobs like these.",
+          "Consider improving your " + weakestStat + " skills for future missions.",
+          "Maybe bring a partner along next time for backup.",
+          "Try a less risky job until you build up more experience.",
+          "This wasn't your day. Sometimes it's better to walk away than force it."
+        ];
+        
+        const failureReasonsForStat = failureReasons[weakestStat as keyof typeof failureReasons] || failureReasons.luck;
+        const randomFailureReason = failureReasonsForStat[Math.floor(Math.random() * failureReasonsForStat.length)];
+        const randomLesson = lessonLearned[Math.floor(Math.random() * lessonLearned.length)];
+        
+        setMissionPenalties({
+          crimeCoinLost,
+          funCoinGained,
+          lessonLearned: randomLesson
+        });
+        
+        // Apply penalties to player
+        failMission(currentMission.id, crimeCoinLost, funCoinGained);
+        
+        // Close mission modal and show failure modal
+        setIsMissionModalOpen(false);
+        setFailureReason(randomFailureReason);
+        setIsFailureModalOpen(true);
+      }
       
-      // Pick random failure reason based on weakest stat
-      const failureReasonsForStat = failureReasons[weakestStat as keyof typeof failureReasons] || failureReasons.luck;
-      const randomFailureReason = failureReasonsForStat[Math.floor(Math.random() * failureReasonsForStat.length)];
-      const randomLesson = lessonLearned[Math.floor(Math.random() * lessonLearned.length)];
-      
-      setMissionPenalties({
-        crimeCoinLost,
-        funCoinGained,
-        lessonLearned: randomLesson
+      toast({
+        title: "Connection Issue",
+        description: "Playing in offline mode. Some features may be limited.",
+        variant: "destructive"
       });
-      
-      // Record mission failure in database
-      fetch('/api/mission-history', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          playerId: 1, // Default player ID
-          missionId: currentMission.id,
-          success: false,
-          crimeCoinChange: -crimeCoinLost, // Negative value for loss
-          funCoinChange: funCoinGained,
-          experienceGained: 5 // Small experience gain even on failure
-        })
-      }).catch(error => {
-        console.error("Failed to record mission history:", error);
-        // Continue with gameplay even if database update fails
-      });
-      
-      // Apply penalties to player
-      failMission(currentMission.id, crimeCoinLost, funCoinGained);
-      
-      // Close mission modal and show failure modal
-      setIsMissionModalOpen(false);
-      setFailureReason(randomFailureReason);
-      setIsFailureModalOpen(true);
-    }
+    });
   };
 
   // Collect rewards and close success modal
