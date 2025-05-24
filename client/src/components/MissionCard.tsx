@@ -75,6 +75,7 @@ export default function MissionCard({ mission, onSelect }: MissionCardProps) {
           className="w-full bg-primary text-dark py-2 rounded font-pixel text-sm hover:bg-opacity-90 transition-all"
           whileHover={{ y: -2 }}
           whileTap={{ y: 0 }}
+          onClick={() => onSelect(mission)}
         >
           START MISSION
         </motion.button>
